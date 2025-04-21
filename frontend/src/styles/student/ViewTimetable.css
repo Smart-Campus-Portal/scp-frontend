@@ -1,0 +1,149 @@
+/* Timetable Container */
+.timetable-container {
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin: 16px auto;
+    max-width: 1000px;
+    width: 95%;
+    /* Ensure container is responsive */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center the content horizontally */
+    margin-right: 20%;
+    /* Move the container to the left */
+}
+
+/* Scrollable Table Wrapper */
+.timetable-scroll-wrapper {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 16px;
+    width: 100%;
+    /* Make the table wrapper take full width */
+}
+
+/* Sticky Header */
+.timetable-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #1c73ca;
+    color: white;
+    z-index: 2;
+    font-size: 1.1rem;
+    padding: 16px;
+    text-align: center;
+}
+
+/* Title & Description */
+.timetable-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.timetable-description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* Table Styling */
+.timetable-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+/* Table Cells Styling */
+.timetable-table th,
+.timetable-table td {
+    padding: 14px 16px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Table Header Styling */
+.timetable-table th {
+    background-color: #1c73ca;
+    color: white;
+    font-weight: 600;
+}
+
+/* Table Row Styling */
+.timetable-table td {
+    background-color: #fff;
+    color: #4b5563;
+}
+
+.timetable-table tr:nth-child(even) td {
+    background-color: #f3f4f6;
+}
+
+.timetable-table tr:hover td {
+    background-color: #e0f7fa;
+    cursor: pointer;
+    transform: scale(1.02);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Download Buttons Styling */
+.download-buttons {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.download-button {
+    padding: 12px 24px;
+    background-color: #1e40af;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.download-button:hover {
+    background-color: #1c3d6b;
+    transform: scale(1.05);
+}
+
+/* Responsive Table Styling */
+@media (max-width: 768px) {
+
+    .timetable-table th,
+    .timetable-table td {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .timetable-container {
+        margin: 8px;
+        padding: 16px;
+    }
+
+    .download-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .download-button {
+        width: 100%;
+    }
+}

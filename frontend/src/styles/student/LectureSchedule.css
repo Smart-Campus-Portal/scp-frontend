@@ -1,0 +1,109 @@
+/* Outer container centers the content */
+.lecture-schedule-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 80px 40px;
+    /* Reduced padding for a cleaner layout */
+    background-color: #f9fafb;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Title styling */
+.title {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #1e40af;
+    margin-bottom: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    /* Added uppercase for a bold look */
+}
+
+/* Subheading styling */
+.subheading {
+    font-size: 1.125rem;
+    /* Slightly larger font size for emphasis */
+    color: #6b7280;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Table container with scroll */
+.table-wrapper {
+    max-width: 100%;
+    overflow-x: auto;
+    background-color: white;
+    border-radius: 12px;
+    /* Rounded corners for modern look */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    /* Added some padding for spacing */
+}
+
+/* Table styling */
+.schedule-table {
+    min-width: 600px;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    /* Ensures the columns adjust better */
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 16px 24px;
+    /* Increased padding for better readability */
+    border: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+/* Header styling */
+.schedule-table th {
+    background-color: #1e40af;
+    color: white;
+    font-weight: bold;
+    white-space: nowrap;
+    text-transform: uppercase;
+    /* Capitalized for uniformity */
+}
+
+/* Alternate row coloring */
+.schedule-table tbody tr:nth-child(even) {
+    background-color: #f3f4f6;
+}
+
+.schedule-table tbody tr:hover {
+    background-color: #e5e7eb;
+}
+
+/* Cell styling */
+.schedule-table td {
+    color: #4b5563;
+}
+
+/* First column emphasis */
+.schedule-table td:first-child {
+    font-weight: 600;
+}
+
+/* Styling for larger screens: responsive table */
+@media (max-width: 768px) {
+    .lecture-schedule-container {
+        padding: 40px 20px;
+        /* Less padding on smaller screens */
+    }
+
+    .schedule-table {
+        min-width: 100%;
+        /* Allow table to be fully responsive */
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+        padding: 12px 16px;
+        /* Adjust padding for smaller screens */
+    }
+}

@@ -1,0 +1,145 @@
+/* Container for the booking form */
+.book-study-room-container {
+    padding: 40px;
+    /* Increased padding for better spacing */
+    background-color: #ffffff;
+    /* White background for contrast */
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    max-width: 700px;
+    /* Slightly wider container */
+    margin: 0 auto;
+    border-radius: 12px;
+    /* Rounded corners */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for depth */
+}
+
+/* Title Styling */
+.book-study-room-title {
+    font-size: 2.5rem;
+    /* Increased font size */
+    font-weight: bold;
+    color: #1e40af;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Success message styling */
+.success-message {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    /* Increased spacing */
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Form styling */
+.book-study-room-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    /* Increased gap between form elements */
+}
+
+/* Individual form field styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form labels styling */
+.form-group label {
+    font-size: 16px;
+    /* Increased font size for labels */
+    color: #4b5563;
+    margin-bottom: 12px;
+    /* Increased margin for spacing */
+    font-weight: 600;
+    /* Bold labels for readability */
+}
+
+/* Input, Select and Textarea styling */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 14px;
+    /* Increased padding for comfort */
+    border-radius: 10px;
+    /* Rounded corners for inputs */
+    border: 1px solid #e5e7eb;
+    font-size: 16px;
+    /* Increased font size */
+    color: #333;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Soft shadow for input fields */
+}
+
+/* Focus effect for inputs, selects, and textareas */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1e40af;
+    box-shadow: 0 0 8px rgba(30, 64, 175, 0.3);
+    /* Highlighted border and shadow */
+}
+
+/* Submit button styling */
+.submit-button {
+    padding: 14px;
+    font-size: 18px;
+    /* Larger font for clarity */
+    background-color: #1e40af;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: 600;
+    /* Bold text */
+    text-align: center;
+    width: 100%;
+    /* Full width button */
+}
+
+.submit-button:hover {
+    background-color: #1e3a8a;
+    transform: scale(1.05);
+    /* Slight scale on hover for interactivity */
+}
+
+/* Additional details (textarea) styling */
+.form-group textarea {
+    height: 160px;
+    /* Increased height for better user experience */
+    resize: vertical;
+    /* Allow resizing for convenience */
+}
+
+/* Media Query for mobile screens */
+@media (max-width: 768px) {
+    .book-study-room-container {
+        padding: 20px;
+        /* Adjusted padding for smaller screens */
+        max-width: 100%;
+        /* Full width on small screens */
+    }
+
+    .book-study-room-title {
+        font-size: 2rem;
+        /* Reduced font size for small screens */
+    }
+
+    .submit-button {
+        padding: 14px;
+        font-size: 16px;
+        /* Adjusted button font size */
+    }
+}
