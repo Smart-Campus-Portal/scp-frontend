@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/LectureSchedule.css'; // Make sure the CSS path is correct
+import '../../styles/student/LectureSchedule.css';
 
 const lectures = [
   {
@@ -34,26 +34,28 @@ const LectureSchedule = () => {
       <h1 className="title">Lecture Schedule</h1>
       <p className="subheading">Here is your upcoming lecture schedule.</p>
 
-      <table className="schedule-table">
-        <thead>
-          <tr>
-            <th>Course</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Location</th>
-          </tr>
-        </thead>
-        <tbody>
-          {lectures.map((lecture, index) => (
-            <tr key={index}>
-              <td>{lecture.course}</td>
-              <td>{lecture.date}</td>
-              <td>{lecture.time}</td>
-              <td>{lecture.location}</td>
+      <div className="table-wrapper">
+        <table className="schedule-table">
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Location</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {lectures.map((lecture, index) => (
+              <tr key={index}>
+                <td>{lecture.course}</td>
+                <td>{lecture.date}</td>
+                <td>{lecture.time}</td>
+                <td>{lecture.location}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

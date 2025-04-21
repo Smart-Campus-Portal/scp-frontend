@@ -1,10 +1,10 @@
 import React from 'react';
 import { jsPDF } from "jspdf";
 import * as XLSX from "xlsx";
-import '../../styles/ViewTimetable.css'; // Import the CSS for styling
+import '../../styles/student/ViewTimetable.css'; // Make sure the updated CSS is saved here
 
 const ViewTimetable = () => {
-  
+
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
     const timetableElement = document.querySelector(".timetable-container");
@@ -48,60 +48,63 @@ const ViewTimetable = () => {
         <button onClick={handleDownloadExcel} className="download-button">Download as Excel</button>
       </div>
 
-      <table className="timetable-table">
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>8:00 AM - 9:30 AM</td>
-            <td>Computer Science 101 (Room 101)</td>
-            <td>Mathematics 102 (Room 204)</td>
-            <td>Biology 103 (Room 305)</td>
-            <td>Chemistry 104 (Room 406)</td>
-            <td>English Literature 105 (Room 507)</td>
-          </tr>
-          <tr>
-            <td>9:45 AM - 11:15 AM</td>
-            <td>Physics 201 (Room 202)</td>
-            <td>Computer Science 202 (Room 103)</td>
-            <td>Mathematics 203 (Room 204)</td>
-            <td>Biology 204 (Room 305)</td>
-            <td>Chemistry 205 (Room 406)</td>
-          </tr>
-          <tr>
-            <td>11:30 AM - 1:00 PM</td>
-            <td>History 101 (Room 101)</td>
-            <td>Philosophy 102 (Room 203)</td>
-            <td>Physics 103 (Room 202)</td>
-            <td>English Literature 104 (Room 507)</td>
-            <td>Computer Science 105 (Room 103)</td>
-          </tr>
-          <tr>
-            <td>1:30 PM - 3:00 PM</td>
-            <td>Mathematics 201 (Room 204)</td>
-            <td>History 102 (Room 101)</td>
-            <td>Philosophy 103 (Room 203)</td>
-            <td>Chemistry 204 (Room 406)</td>
-            <td>Biology 205 (Room 305)</td>
-          </tr>
-          <tr>
-            <td>3:15 PM - 4:45 PM</td>
-            <td>Political Science 101 (Room 309)</td>
-            <td>Mathematics 202 (Room 204)</td>
-            <td>History 103 (Room 101)</td>
-            <td>Physics 104 (Room 202)</td>
-            <td>English Literature 105 (Room 507)</td>
-          </tr>
-        </tbody>
-      </table>
+      {/* Scrollable table wrapper */}
+      <div className="timetable-scroll-wrapper">
+        <table className="timetable-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Monday</th>
+              <th>Tuesday</th>
+              <th>Wednesday</th>
+              <th>Thursday</th>
+              <th>Friday</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>8:00 AM - 9:30 AM</td>
+              <td>Computer Science 101 (Room 101)</td>
+              <td>Mathematics 102 (Room 204)</td>
+              <td>Biology 103 (Room 305)</td>
+              <td>Chemistry 104 (Room 406)</td>
+              <td>English Literature 105 (Room 507)</td>
+            </tr>
+            <tr>
+              <td>9:45 AM - 11:15 AM</td>
+              <td>Physics 201 (Room 202)</td>
+              <td>Computer Science 202 (Room 103)</td>
+              <td>Mathematics 203 (Room 204)</td>
+              <td>Biology 204 (Room 305)</td>
+              <td>Chemistry 205 (Room 406)</td>
+            </tr>
+            <tr>
+              <td>11:30 AM - 1:00 PM</td>
+              <td>History 101 (Room 101)</td>
+              <td>Philosophy 102 (Room 203)</td>
+              <td>Physics 103 (Room 202)</td>
+              <td>English Literature 104 (Room 507)</td>
+              <td>Computer Science 105 (Room 103)</td>
+            </tr>
+            <tr>
+              <td>1:30 PM - 3:00 PM</td>
+              <td>Mathematics 201 (Room 204)</td>
+              <td>History 102 (Room 101)</td>
+              <td>Philosophy 103 (Room 203)</td>
+              <td>Chemistry 204 (Room 406)</td>
+              <td>Biology 205 (Room 305)</td>
+            </tr>
+            <tr>
+              <td>3:15 PM - 4:45 PM</td>
+              <td>Political Science 101 (Room 309)</td>
+              <td>Mathematics 202 (Room 204)</td>
+              <td>History 103 (Room 101)</td>
+              <td>Physics 104 (Room 202)</td>
+              <td>English Literature 105 (Room 507)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

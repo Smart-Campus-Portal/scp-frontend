@@ -49,12 +49,27 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 16px;
     display: none;
+    position: relative;
+    height: 100vh;
+    /* Full height */
+    overflow-y: auto;
+    /* Enables scrolling */
 }
 
 .nav {
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+/* Making the navItems scrollable */
+.dashboard-sidebar {
+    max-height: 100vh;
+    /* Ensure it doesn't overflow the screen */
+    overflow-y: auto;
+    /* Enables scrolling if content overflows */
+    padding-right: 8px;
+    /* Space for scrollbar */
 }
 
 .nav-item {
@@ -131,7 +146,7 @@ footer {
     }
 
     .dashboard-content {
-        margin-left: 256px;
+        margin-left:60px;
     }
 }
 

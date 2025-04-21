@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../styles/BookStudyRoom.css'; // Ensure the CSS path is correct
+import '../../styles/student/BookStudyRoom.css'; // Ensure the CSS path is correct
 
 const BookStudyRoom = () => {
   const [roomType, setRoomType] = useState('');
