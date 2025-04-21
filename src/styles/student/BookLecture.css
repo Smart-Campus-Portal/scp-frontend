@@ -1,0 +1,145 @@
+/* Wrapper to center content and allow scroll */
+.book-lecture-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    height: 100vh;
+    padding: 40px;
+    background-color: #f3f4f6;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Container for the booking form */
+.book-lecture-container {
+    background-color: #ffffff;
+    /* Changed to white for contrast */
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    /* Stronger shadow for depth */
+}
+
+/* Title Styling */
+.book-lecture-title {
+    font-size: 2.5rem;
+    /* Increased font size for better visibility */
+    font-weight: bold;
+    color: #1e40af;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Success message styling */
+.success-message {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    /* Increased space for better separation */
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    /* Adjusted font size for readability */
+}
+
+/* Form styling */
+.book-lecture-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    /* Increased gap for better spacing */
+}
+
+/* Individual form field styling */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form labels styling */
+.form-group label {
+    font-size: 16px;
+    /* Increased font size */
+    color: #4b5563;
+    margin-bottom: 12px;
+    /* Increased margin for spacing */
+    font-weight: 600;
+    /* Added boldness for readability */
+}
+
+/* Input and textarea styling */
+.form-group input,
+.form-group textarea {
+    padding: 14px;
+    /* Slightly increased padding for comfort */
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    font-size: 16px;
+    /* Increased font size for better readability */
+    color: #333;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Light shadow for depth */
+}
+
+/* Focus effect for inputs and textareas */
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #1e40af;
+    box-shadow: 0 0 4px rgba(30, 64, 175, 0.3);
+    /* Highlight border on focus */
+}
+
+/* Submit button styling */
+.submit-button {
+    padding: 14px;
+    font-size: 18px;
+    /* Increased font size for clarity */
+    background-color: #1e40af;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+    /* Made button text bold for better visibility */
+}
+
+.submit-button:hover {
+    background-color: #1e3a8a;
+}
+
+/* Additional details (textarea) styling */
+.form-group textarea {
+    height: 160px;
+    /* Increased height for better visibility */
+    resize: vertical;
+}
+
+/* Media Query for small screens */
+@media (max-width: 768px) {
+    .book-lecture-container {
+        padding: 24px;
+        /* Reduced padding on smaller screens */
+    }
+
+    .book-lecture-title {
+        font-size: 2rem;
+        /* Reduced font size on small screens */
+    }
+
+    .submit-button {
+        padding: 12px;
+        font-size: 16px;
+        /* Adjusted button font size for smaller screens */
+    }
+}
