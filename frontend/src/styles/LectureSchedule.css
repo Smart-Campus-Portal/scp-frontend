@@ -1,0 +1,59 @@
+/* General container for the lecture schedule page */
+.lecture-schedule-container {
+    padding: 20px;
+    background-color: #f9fafb;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Title styling */
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1e40af;
+    margin-bottom: 10px;
+}
+
+/* Subheading styling */
+.subheading {
+    font-size: 1rem;
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+/* Table styling */
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 12px 15px;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+.schedule-table th {
+    background-color: #1e40af;
+    color: white;
+    font-weight: bold;
+}
+
+.schedule-table tbody tr:nth-child(even) {
+    background-color: #f3f4f6;
+}
+
+.schedule-table tbody tr:hover {
+    background-color: #e5e7eb;
+}
+
+.schedule-table td {
+    color: #4b5563;
+}
+
+.schedule-table td:first-child {
+    font-weight: 600;
+}

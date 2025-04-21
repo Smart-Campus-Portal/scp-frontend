@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+// App.jsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import DashboardLayoutStudent from './components/DashboardLayoutStudent';
+import ViewTimetable from './pages/student/ViewTimetable';
+import LectureSchedule from './pages/student/LectureSchedule';
+import BookLecture from './pages/student/BookLecture';
+import BookStudyRoom from './pages/student/BookStudyRoom';
+import AccountDetail from './pages/student/AccountDetail';
+import ReportIssue from './pages/student/ReportIssue';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+          <Route path="/" element={<DashboardLayoutStudent />}>
+          <Route path="view-timetable" element={<ViewTimetable />} />
+          <Route path="lecture-schedule" element={<LectureSchedule />} />
+          <Route path="book-lecture" element={<BookLecture />} />
+          <Route path="book-study-room" element={<BookStudyRoom />} />
+          <Route path="account-detail" element={<AccountDetail />} />
+          <Route path="report-issue" element={<ReportIssue />} />
+          </Route>
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
