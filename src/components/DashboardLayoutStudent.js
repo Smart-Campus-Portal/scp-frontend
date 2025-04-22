@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { FaHome, FaCalendarAlt, FaChalkboardTeacher, FaUserEdit, FaBullhorn, FaExclamationCircle, FaDoorOpen, FaBookReader } from 'react-icons/fa';
+import { FaHome, FaCalendarAlt, FaChalkboardTeacher, FaUserEdit, FaExclamationCircle, FaDoorOpen, FaBookReader, FaUser } from 'react-icons/fa';
 import Footer from './Footer';
 import Header from './Header';
-import './DashboardLayoutStudent.css';
+import '../styles/student/DashboardLayoutStudent.css';
 
 const navItems = [
   { path: '', label: 'Dashboard', icon: <FaHome /> },
@@ -12,9 +12,11 @@ const navItems = [
   { path: 'lecture-schedule', label: 'View Lecture Schedule', icon: <FaChalkboardTeacher /> },
   { path: 'book-lecture', label: 'Book Lecture Appointment', icon: <FaBookReader /> },
   { path: 'book-study-room', label: 'Book Study Room', icon: <FaDoorOpen /> },
-  { path: 'account-detail', label: 'Update Account Detail', icon: <FaUserEdit /> },
+  { path: 'account-detail', label: 'Settings', icon: <FaUserEdit /> },
   { path: 'report-issue', label: 'Report An Issue', icon: <FaExclamationCircle /> },
-  { path: 'announcements', label: 'Announcements', icon: <FaBullhorn /> },
+  {path: 'issues', label: 'View Reported Issues', icon: <FaExclamationCircle />},
+  { path: 'profile', label: 'Profile', icon: <FaUser /> },
+  
 ];
 
 const DashboardLayoutStudent = () => {

@@ -1,9 +1,20 @@
 import React from 'react';
-import './Header.css';
-import { Link } from 'react-router-dom';
+import '../styles/student/Header.css';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
+import { FiLogOut } from 'react-icons/fi'; // New logout icon
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remove logged-in status and user role from localStorage
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('userRole');
+    // Navigate to the login page
+    navigate('/');
+  };
+
   return (
     <header className="dashboard-header">
       <div className="header-content">
@@ -11,24 +22,25 @@ const Header = () => {
         <nav className="header-nav">
           <ul>
             <li>
-              <Link to="/home" className="nav-link">Home</Link>
+              <Link to="/studentDashboard" className="nav-link">Home</Link>
             </li>
+            <li>Hello, Prince</li>
             <li>
-              <Link to="/home" className="nav-link">Hello, Prince</Link>
-            </li>
-            <li>
-              <Link to="/profile" className="nav-link">Profile</Link>
+              <Link to="profile" className="nav-link">Profile</Link>
             </li>
             <li>
               <Link to="account-detail" className="nav-link">Settings</Link>
             </li>
             <li>
-              <Link to="/logout" className="nav-link">Logout</Link>
+              {/* Use Link to trigger logout */}
+              <Link to="/" className="nav-link logout-button" onClick={handleLogout}>
+                <FiLogOut className="logout-icon" /> Logout
+              </Link>
             </li>
           </ul>
         </nav>
 
-        {/* Bell wrapped with Link */}
+        {/* Notification Bell */}
         <Link to="announcements" className="notification-container">
           <FaBell className="notification-bell" />
           <span className="notification-count">3</span>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaUser, FaEnvelope, FaPhone, FaIdBadge } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaPhone, FaIdBadge, FaLock } from 'react-icons/fa';
 import '../../styles/student/AccountDetail.css';
 
 const AccountDetail = () => {
@@ -10,6 +10,8 @@ const AccountDetail = () => {
     lastName: '',
     email: '',
     phone: '',
+    oldPassword: '',
+    newPassword: '',
   });
 
   const handleChange = (e) => {
@@ -25,23 +27,33 @@ const AccountDetail = () => {
 
     console.log('Updated Account Details:', formData);
 
-    toast.success('✅ Your account details have been updated successfully!', {
-      position: 'top-center',
-      autoClose: 3000,
-    });
+    // Fake password validation logic here for demonstration
+    if (formData.oldPassword && formData.newPassword) {
+      toast.success('✅ Password and details updated successfully!', {
+        position: 'top-center',
+        autoClose: 3000,
+      });
+    } else {
+      toast.success('✅ Account details updated successfully!', {
+        position: 'top-center',
+        autoClose: 3000,
+      });
+    }
 
     setFormData({
       firstName: '',
       lastName: '',
       email: '',
       phone: '',
+      oldPassword: '',
+      newPassword: '',
     });
   };
 
   return (
     <div className="account-detail-container">
-      <h1 className="account-title">Update Account Details</h1>
-      <p className="account-description">Keep your information up to date for smooth communication.</p>
+      <h1 className="account-title">Student Settings</h1>
+      <p className="account-description">Manage your personal information and password here.</p>
 
       <ToastContainer />
 
@@ -106,6 +118,38 @@ const AccountDetail = () => {
             value={formData.phone}
             onChange={handleChange}
             className="form-input"
+          />
+        </div>
+
+        {/* Old Password */}
+        <div className="form-group">
+          <label htmlFor="oldPassword" className="form-label">
+            <FaLock className="input-icon" /> Current Password
+          </label>
+          <input
+            type="password"
+            id="oldPassword"
+            name="oldPassword"
+            value={formData.oldPassword}
+            onChange={handleChange}
+            className="form-input"
+            placeholder="Enter your current password"
+          />
+        </div>
+
+        {/* New Password */}
+        <div className="form-group">
+          <label htmlFor="newPassword" className="form-label">
+            <FaLock className="input-icon" /> New Password
+          </label>
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            value={formData.newPassword}
+            onChange={handleChange}
+            className="form-input"
+            placeholder="Enter your new password"
           />
         </div>
 

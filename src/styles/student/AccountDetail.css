@@ -97,3 +97,20 @@ textarea.form-input {
         padding: 12px;
     }
 }
+/* Just reuse what's already there for consistency */
+
+.form-input::placeholder {
+    color: #9ca3af;
+    font-style: italic;
+}
+
+/* Adjustments for password fields on smaller screens */
+@media (max-width: 768px) {
+    .form-input {
+        font-size: 0.95rem;
+    }
+
+    .form-label {
+        font-size: 0.95rem;
+    }
+}

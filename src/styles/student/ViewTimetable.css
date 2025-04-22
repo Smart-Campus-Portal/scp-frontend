@@ -1,110 +1,124 @@
-/* Overall container for the timetable */
+/* Timetable Container */
 .timetable-container {
-    background-color: #ffffff;
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    margin: 24px auto;
-    max-width: 1100px;
-    width: 95%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background-color: #fff;
+  padding: 24px 32px;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  margin: 20px auto;
+  max-width: 1000px;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Title */
+.timetable-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin-bottom: 12px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Description */
+.timetable-description {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 24px;
+  text-align: center;
+  line-height: 1.5;
+  max-width: 700px;
+}
+
+/* Download Buttons */
+.download-buttons {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.download-button {
+  padding: 10px 22px;
+  background-color: #1e40af;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.download-button:hover {
+  background-color: #153174;
+  transform: scale(1.04);
+}
+
+/* Table Scroll Wrapper */
+.timetable-scroll-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+/* Table */
+.timetable-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.timetable-table th,
+.timetable-table td {
+  padding: 10px 16px;
+  text-align: center;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+.timetable-table thead th {
+  background-color: #1c73ca;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .timetable-container {
+    padding: 16px 20px;
   }
-  
-  /* Title and description */
+
   .timetable-title {
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: #1e40af;
-    margin-bottom: 16px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 1.6rem;
   }
-  
+
   .timetable-description {
-    font-size: 1.25rem;
-    color: #555;
-    margin-bottom: 32px;
-    text-align: center;
-    line-height: 1.5;
+    font-size: 1rem;
   }
-  
-  /* Download buttons container */
+
   .download-buttons {
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
+    flex-direction: column;
+    gap: 10px;
   }
-  
+
   .download-button {
-    padding: 14px 28px;
-    background-color: #1e40af;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .download-button:hover {
-    background-color: #1c3d6b;
-    transform: scale(1.05);
-  }
-  
-  /* Table container with scroll */
-  .timetable-scroll-wrapper {
-    overflow-x: auto;
     width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-top: 20px;
   }
-  
-  .timetable-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 1.1rem;
-  }
-  
+
   .timetable-table th,
   .timetable-table td {
-    padding: 14px 20px;
-    text-align: center;
-    border: 1px solid #ddd;
-    font-weight: 500;
-    color: #333;
+    font-size: 0.85rem;
+    padding: 8px 12px;
   }
-  
-  .timetable-table thead th {
-    background-color: #1c73ca;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    text-transform: uppercase;
-  }
-  
-  /* Responsive styling */
-  @media (max-width: 768px) {
-    .timetable-table th,
-    .timetable-table td {
-      font-size: 0.9rem;
-      padding: 10px;
-    }
-  
-    .download-buttons {
-      flex-direction: column;
-      gap: 12px;
-    }
-  
-    .download-button {
-      width: 100%;
-    }
-  }
-  
+}

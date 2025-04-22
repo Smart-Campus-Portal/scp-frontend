@@ -181,3 +181,18 @@
         transform: translateY(0);
     }
 }
+/* Icon styling */
+.form-icon {
+    color: #1e40af;
+    margin-right: 8px;
+    /* Adds space between the icon and the label */
+    font-size: 1.2rem;
+    /* Adjust icon size */
+}
+
+/* Adjust the size of the icons inside the confirmation buttons */
+.confirm-button i,
+.cancel-button i {
+    font-size: 1.1rem;
+    /* Smaller icons for buttons */
+}
