@@ -139,3 +139,58 @@
     padding-top: 16px;
     margin-top: 16px;
 }
+/* --- Analytics Dashboard Styling --- */
+
+.analytics-dashboard {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 48px;
+}
+
+.analytics-dashboard h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 30px;
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.analytics-card {
+    background-color: #f1f5f9;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.analytics-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+}
+
+.analytics-card svg {
+    font-size: 32px;
+    color: #1e40af;
+    margin-bottom: 12px;
+}
+
+.analytics-card h4 {
+    font-size: 1.25rem;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
+.analytics-card p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0f172a;
+}

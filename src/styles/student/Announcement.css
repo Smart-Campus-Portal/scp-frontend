@@ -1,82 +1,96 @@
-/* Announcement Container */
+/* Container Styling */
 .announcement-container {
     background-color: #ffffff;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    margin: 16px auto;
-    max-width: 1000px;
-    width: 95%;
-}
-
-/* Announcement Title */
-.announcement-title {
-    font-size: 2.5rem;
+    padding: 40px 32px;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    margin: 40px auto;
+    max-width: 960px;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Header Title */
+  .announcement-title {
+    font-size: 2.75rem;
     font-weight: 700;
-    color: #1e40af;
+    color: #1e3a8a;
     text-align: center;
-    margin-bottom: 16px;
-}
-
-/* Announcement Description */
-.announcement-description {
-    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  
+  /* Description Text */
+  .announcement-description {
+    font-size: 1.1rem;
     color: #555;
     text-align: center;
-    margin-bottom: 24px;
-}
-
-/* Announcement List */
-.announcement-list {
+    margin-bottom: 32px;
+  }
+  
+  /* List of Announcements */
+  .announcement-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-/* Announcement Card */
-.announcement-card {
-    background-color: #f9fafb;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Announcement Card Title */
-.announcement-card-title {
+    gap: 24px;
+  }
+  
+  /* Card Styling */
+  .announcement-card {
+    background-color: #f8fafc;
+    border-left: 6px solid #1e40af;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease;
+  }
+  
+  .announcement-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  /* Card Title */
+  .announcement-card-title {
     font-size: 1.5rem;
     font-weight: 600;
     color: #1e40af;
     margin-bottom: 8px;
-}
-
-/* Announcement Card Date */
-.announcement-card-date {
-    font-size: 1rem;
+  }
+  
+  /* Date Styling */
+  .announcement-card-date {
+    font-size: 0.95rem;
+    font-style: italic;
     color: #6b7280;
     margin-bottom: 12px;
-}
-
-/* Announcement Card Content */
-.announcement-card-content {
+  }
+  
+  /* Content Paragraph */
+  .announcement-card-content {
     font-size: 1rem;
-    color: #4b5563;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
+    color: #374151;
+    line-height: 1.6;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .announcement-container {
+      padding: 24px 16px;
+    }
+  
     .announcement-title {
-        font-size: 2rem;
+      font-size: 2rem;
     }
-
-    .announcement-description {
-        font-size: 1rem;
+  
+    .announcement-card {
+      padding: 20px;
     }
-
+  
     .announcement-card-title {
-        font-size: 1.3rem;
+      font-size: 1.3rem;
     }
-
+  
     .announcement-card-content {
-        font-size: 0.9rem;
+      font-size: 0.95rem;
     }
-}
+  }
+  

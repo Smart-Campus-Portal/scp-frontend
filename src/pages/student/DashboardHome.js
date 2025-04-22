@@ -1,33 +1,57 @@
 import React from 'react';
 import '../../styles/student/DashboardHome.css';
+import { FaBookOpen, FaCalendarAlt, FaTools, FaBullhorn } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom for navigation
 
 const DashboardHome = () => {
   return (
     <div className="dashboard-home">
       <div className="welcome-message">
         <h2>Good evening, John Student!</h2>
-        <p>Here's an overview of your campus activities and services.</p>
+     
       </div>
 
-      <div className="dashboard-sections">
-        <div className="card">
-          <h3>Room Booking</h3>
-          <p>Book a room</p>
+      {/* Statistics Overview */}
+      <div className="dashboard-stats">
+        <div className="stat-card">
+          <Link to="/room-bookings"> {/* Link to the room bookings page */}
+            <FaBookOpen />
+            <div>
+              <h4>Room Bookings</h4>
+              <p>3 Upcoming</p>
+            </div>
+          </Link>
         </div>
-        <div className="card">
-          <h3>Class Schedule</h3>
-          <p>View timetable</p>
+        <div className="stat-card">
+          <Link to="/class-schedule"> {/* Link to the class schedule page */}
+            <FaCalendarAlt />
+            <div>
+              <h4>Classes Today</h4>
+              <p>2 Scheduled</p>
+            </div>
+          </Link>
         </div>
-        <div className="card">
-          <h3>Maintenance</h3>
-          <p>Report an issue</p>
+        <div className="stat-card">
+          <Link to="/maintenance"> {/* Link to the maintenance page */}
+            <FaTools />
+            <div>
+              <h4>Maintenance</h4>
+              <p>1 Pending</p>
+            </div>
+          </Link>
         </div>
-        <div className="card">
-          <h3>Announcements</h3>
-          <p>Campus updates</p>
+        <div className="stat-card">
+          <Link to="/announcements"> {/* Link to the announcements page */}
+            <FaBullhorn />
+            <div>
+              <h4>New Announcements</h4>
+              <p>3 Recent</p>
+            </div>
+          </Link>
         </div>
       </div>
 
+      {/* Other Sections */}
       <div className="dashboard-lists">
         <section>
           <h4>Upcoming Bookings</h4>
