@@ -76,7 +76,7 @@ const DashboardHome = () => {
           <ul>
             <li><strong>Library Hours Extended</strong> – 2 hours ago – The main library will remain open until midnight during finals week.</li>
             <li><strong>WiFi Maintenance Scheduled</strong> – 1 day ago – Campus WiFi will be undergoing maintenance on Saturday from 7 AM to 9 AM.</li>
-            <li><strong>Career Fair Next Week</strong> – 2 days ago – Don’t miss the annual career fair in the Student Center next Wednesday!</li>
+          
           </ul>
           <button>View all announcements</button>
         </section>

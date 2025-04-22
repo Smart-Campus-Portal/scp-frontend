@@ -37,7 +37,7 @@ const BookLecture = () => {
   return (
     <div className="book-lecture-wrapper">
       <div className="book-lecture-container">
-        <h1 className="book-lecture-title">📚 Book a Lecture Appointment</h1>
+        <h1 className="book-lecture-title">📚 Book Lecture Appointment</h1>
 
         {successMessage && <div className="success-message">{successMessage}</div>}
 

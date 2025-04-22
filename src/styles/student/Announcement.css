@@ -1,96 +1,99 @@
 /* Container Styling */
 .announcement-container {
-    background-color: #ffffff;
-    padding: 40px 32px;
-    border-radius: 16px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-    margin: 40px auto;
-    max-width: 960px;
-    width: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  padding: 24px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  margin: 32px auto;
+  max-width: 840px;
+  width: 95%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Title */
+.announcement-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #193a95;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+/* Description Text */
+.announcement-description {
+  font-size: 0.95rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* List of Announcements */
+.announcement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card Styling */
+.announcement-card {
+  background-color: #f8fafc;
+  border-left: 4px solid #1e40af;
+  border-radius: 10px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.announcement-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Card Title */
+.announcement-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 6px;
+}
+
+/* Date Styling */
+.announcement-card-date {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+/* Content Paragraph */
+.announcement-card-content {
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .announcement-container {
+    padding: 20px 14px;
   }
-  
-  /* Header Title */
+
   .announcement-title {
-    font-size: 2.75rem;
-    font-weight: 700;
-    color: #1e3a8a;
-    text-align: center;
-    margin-bottom: 8px;
-  }
-  
-  /* Description Text */
-  .announcement-description {
-    font-size: 1.1rem;
-    color: #555;
-    text-align: center;
-    margin-bottom: 32px;
-  }
-  
-  /* List of Announcements */
-  .announcement-list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  
-  /* Card Styling */
-  .announcement-card {
-    background-color: #f8fafc;
-    border-left: 6px solid #1e40af;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
-    transition: transform 0.2s ease;
-  }
-  
-  .announcement-card:hover {
-    transform: translateY(-4px);
-  }
-  
-  /* Card Title */
-  .announcement-card-title {
     font-size: 1.5rem;
-    font-weight: 600;
-    color: #1e40af;
-    margin-bottom: 8px;
   }
-  
-  /* Date Styling */
-  .announcement-card-date {
-    font-size: 0.95rem;
-    font-style: italic;
-    color: #6b7280;
-    margin-bottom: 12px;
+
+  .announcement-description {
+    font-size: 0.9rem;
   }
-  
-  /* Content Paragraph */
+
+  .announcement-card {
+    padding: 14px;
+  }
+
+  .announcement-card-title {
+    font-size: 1.1rem;
+  }
+
   .announcement-card-content {
-    font-size: 1rem;
-    color: #374151;
-    line-height: 1.6;
+    font-size: 0.9rem;
   }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .announcement-container {
-      padding: 24px 16px;
-    }
-  
-    .announcement-title {
-      font-size: 2rem;
-    }
-  
-    .announcement-card {
-      padding: 20px;
-    }
-  
-    .announcement-card-title {
-      font-size: 1.3rem;
-    }
-  
-    .announcement-card-content {
-      font-size: 0.95rem;
-    }
-  }
-  
+}

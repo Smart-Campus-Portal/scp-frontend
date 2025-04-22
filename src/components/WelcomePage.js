@@ -1,5 +1,5 @@
 import React from 'react';
-import './WelcomePage.css';
+import '../styles/student/WelcomePage.css';
 import { Link } from 'react-router-dom';
 import { FaChartLine, FaUsers, FaRegCalendarAlt, FaTools } from 'react-icons/fa';
 
