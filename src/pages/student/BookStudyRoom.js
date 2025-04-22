@@ -8,11 +8,23 @@ const BookStudyRoom = () => {
   const [duration, setDuration] = useState('');
   const [details, setDetails] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false); // For confirmation popup visibility
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // For now, display a success message
-    setSuccessMessage('Your study room has been successfully booked!');
+    setShowConfirmation(true); // Show confirmation popup
+  };
+
+  const handleConfirmation = (confirm) => {
+    setShowConfirmation(false);
+    if (confirm) {
+      setSuccessMessage('Your study room has been successfully booked!');
+      setRoomType('');
+      setDate('');
+      setTime('');
+      setDuration('');
+      setDetails('');
+    }
   };
 
   return (
@@ -89,6 +101,23 @@ const BookStudyRoom = () => {
 
         <button type="submit" className="submit-button">Book Study Room</button>
       </form>
+
+      {/* Confirmation Popup */}
+      {showConfirmation && (
+        <div className="confirmation-popup">
+          <div className="confirmation-content">
+            <p>
+              Are you sure you want to book a {roomType} for {duration} hour(s) on {date} at {time}?
+            </p>
+            <button onClick={() => handleConfirmation(true)} className="confirm-button">
+              Yes
+            </button>
+            <button onClick={() => handleConfirmation(false)} className="cancel-button">
+              No
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -19,7 +19,6 @@ const App = () => {
       <Routes>
           <Route path="/hhh" element={<WelcomePage />} /> 
           <Route path="/" element={<DashboardLayoutStudent />}>
-          <Route path="/s" element={<WelcomePage />} /> 
           <Route index element={<DashboardHome />} />
           <Route path="view-timetable" element={<ViewTimetable />} />
           <Route path="lecture-schedule" element={<LectureSchedule />} />
