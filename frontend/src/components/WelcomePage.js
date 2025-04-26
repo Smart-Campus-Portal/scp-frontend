@@ -1,22 +1,41 @@
 import React from 'react';
-import './WelcomePage.css';
+import '../styles/student/WelcomePage.css';
 import { Link } from 'react-router-dom';
+import { FaChartLine, FaUsers, FaRegCalendarAlt, FaTools } from 'react-icons/fa';
 
 const WelcomePage = () => {
   return (
     <div className="welcome-page">
-      <header className="welcome-header">
-        <h1>SmartCampus</h1>
-        <nav className="welcome-nav">
-          <Link to="/login">Log In</Link>
-          <Link to="/signup">Get Started</Link>
-        </nav>
-      </header>
-
       <main className="welcome-main">
         <section className="intro-section">
           <h2>Streamline Your Campus Experience</h2>
           <p>Your all-in-one solution for managing bookings, schedules, maintenance requests, and campus announcements.</p>
+        </section>
+
+        <section className="analytics-dashboard">
+          <h3>System Analytics</h3>
+          <div className="analytics-grid">
+            <div className="analytics-card">
+              <FaUsers />
+              <h4>Active Users</h4>
+              <p>1,245</p>
+            </div>
+            <div className="analytics-card">
+              <FaRegCalendarAlt />
+              <h4>Upcoming Events</h4>
+              <p>32</p>
+            </div>
+            <div className="analytics-card">
+              <FaTools />
+              <h4>Maintenance Requests</h4>
+              <p>5 Pending</p>
+            </div>
+            <div className="analytics-card">
+              <FaChartLine />
+              <h4>System Uptime</h4>
+              <p>99.8%</p>
+            </div>
+          </div>
         </section>
 
         <section className="features-section">
@@ -86,39 +105,6 @@ const WelcomePage = () => {
           </div>
         </section>
       </main>
-
-      <footer className="welcome-footer">
-        <div className="footer-columns">
-          <div>
-            <h4>Services</h4>
-            <ul>
-              <li>Room Bookings</li>
-              <li>Class Schedules</li>
-              <li>Maintenance Requests</li>
-              <li>Campus Announcements</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Support</h4>
-            <ul>
-              <li>Help Center</li>
-              <li>FAQs</li>
-              <li>Contact Us</li>
-              <li>Feedback</li>
-            </ul>
-          </div>
-          <div>
-            <h4>Contact</h4>
-            <ul>
-              <li>123 Campus Drive</li>
-              <li>info@smartcampus.edu</li>
-              <li>+1 (800) 123-4567</li>
-              <li>Campus Directory</li>
-            </ul>
-          </div>
-        </div>
-        <p className="footer-bottom">© 2025 SmartCampus. All rights reserved. | Privacy Policy | Terms of Service | Accessibility</p>
-      </footer>
     </div>
   );
 };

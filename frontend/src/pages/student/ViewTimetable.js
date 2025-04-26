@@ -1,55 +1,61 @@
 import React from 'react';
-import { jsPDF } from "jspdf";
-import * as XLSX from "xlsx";
-import '../../styles/student/ViewTimetable.css'; // Make sure the updated CSS is saved here
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx';
+import '../../styles/student/ViewTimetable.css';
 
 const ViewTimetable = () => {
-
   const handleDownloadPDF = () => {
-    const doc = new jsPDF();
-    const timetableElement = document.querySelector(".timetable-container");
+    const input = document.querySelector('.timetable-container');
 
-    doc.html(timetableElement, {
-      callback: function (doc) {
-        doc.save("student_timetable.pdf");
-      },
-      margin: [20, 20, 20, 20],
-      autoPaging: true,
+    html2canvas(input, {
+      scale: 2, // higher scale for better quality
+      useCORS: true,
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+
+      const imgWidth = pageWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      const y = (pageHeight - imgHeight) / 2;
+
+      pdf.addImage(imgData, 'PNG', 0, y, imgWidth, imgHeight);
+      pdf.save('student_timetable.pdf');
     });
   };
 
   const handleDownloadExcel = () => {
     const timetableData = [
-      ["Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      ["8:00 AM - 9:30 AM", "Computer Science 101 (Room 101)", "Mathematics 102 (Room 204)", "Biology 103 (Room 305)", "Chemistry 104 (Room 406)", "English Literature 105 (Room 507)"],
-      ["9:45 AM - 11:15 AM", "Physics 201 (Room 202)", "Computer Science 202 (Room 103)", "Mathematics 203 (Room 204)", "Biology 204 (Room 305)", "Chemistry 205 (Room 406)"],
-      ["11:30 AM - 1:00 PM", "History 101 (Room 101)", "Philosophy 102 (Room 203)", "Physics 103 (Room 202)", "English Literature 104 (Room 507)", "Computer Science 105 (Room 103)"],
-      ["1:30 PM - 3:00 PM", "Mathematics 201 (Room 204)", "History 102 (Room 101)", "Philosophy 103 (Room 203)", "Chemistry 204 (Room 406)", "Biology 205 (Room 305)"],
-      ["3:15 PM - 4:45 PM", "Political Science 101 (Room 309)", "Mathematics 202 (Room 204)", "History 103 (Room 101)", "Physics 104 (Room 202)", "English Literature 105 (Room 507)"]
+      ['Time', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      ['8:00 AM - 9:30 AM', 'Computer Science 101 (Room 101)', 'Mathematics 102 (Room 204)', 'Biology 103 (Room 305)', 'Chemistry 104 (Room 406)', 'English Literature 105 (Room 507)'],
+      ['9:45 AM - 11:15 AM', 'Physics 201 (Room 202)', 'Computer Science 202 (Room 103)', 'Mathematics 203 (Room 204)', 'Biology 204 (Room 305)', 'Chemistry 205 (Room 406)'],
+      ['11:30 AM - 1:00 PM', 'History 101 (Room 101)', 'Philosophy 102 (Room 203)', 'Physics 103 (Room 202)', 'English Literature 104 (Room 507)', 'Computer Science 105 (Room 103)'],
+      ['1:30 PM - 3:00 PM', 'Mathematics 201 (Room 204)', 'History 102 (Room 101)', 'Philosophy 103 (Room 203)', 'Chemistry 204 (Room 406)', 'Biology 205 (Room 305)'],
+      ['3:15 PM - 4:45 PM', 'Political Science 101 (Room 309)', 'Mathematics 202 (Room 204)', 'History 103 (Room 101)', 'Physics 104 (Room 202)', 'English Literature 105 (Room 507)']
     ];
 
     const ws = XLSX.utils.aoa_to_sheet(timetableData);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Timetable");
-
-    XLSX.writeFile(wb, "student_timetable.xlsx");
+    XLSX.utils.book_append_sheet(wb, ws, 'Timetable');
+    XLSX.writeFile(wb, 'student_timetable.xlsx');
   };
 
   return (
     <div className="timetable-container">
       <h2 className="timetable-title">University Student Timetable</h2>
       <p className="timetable-description">
-        Below is your class timetable for the current semester. You can see your courses and the corresponding times, locations, and professors.
+        Below is your class timetable for the current semester. You can see your courses, corresponding times, locations, and professors.
       </p>
 
-      {/* Buttons for downloading PDF and Excel */}
       <div className="download-buttons">
         <button onClick={handleDownloadPDF} className="download-button">Download as PDF</button>
         <button onClick={handleDownloadExcel} className="download-button">Download as Excel</button>
       </div>
 
-      {/* Scrollable table wrapper */}
-      <div className="timetable-scroll-wrapper">
+      <div className="timetable-scroll-wrapper pdf-friendly">
         <table className="timetable-table">
           <thead>
             <tr>

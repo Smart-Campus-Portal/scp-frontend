@@ -1,38 +1,39 @@
 import React from 'react';
-import './Header.css';
-import { Link } from 'react-router-dom';
+import '../styles/student/Header.css';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
+import { FiLogOut } from 'react-icons/fi';
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('userRole');
+    navigate('/');
+  };
+
   return (
     <header className="dashboard-header">
       <div className="header-content">
-        <h1>Student Dashboard</h1>
-        <nav className="header-nav">
-          <ul>
-            <li>
-              <Link to="/home" className="nav-link">Home</Link>
-            </li>
-            <li>
-              <Link to="/home" className="nav-link">Hello, Prince</Link>
-            </li>
-            <li>
-              <Link to="/profile" className="nav-link">Profile</Link>
-            </li>
-            <li>
-              <Link to="account-detail" className="nav-link">Settings</Link>
-            </li>
-            <li>
-              <Link to="/logout" className="nav-link">Logout</Link>
-            </li>
-          </ul>
-        </nav>
+        {/* Left: Hello */}
+        <div className="left-section">
+          <span className="greeting-text">Hello, Prince</span>
+        </div>
 
-        {/* Bell wrapped with Link */}
-        <Link to="announcements" className="notification-container">
-          <FaBell className="notification-bell" />
-          <span className="notification-count">3</span>
-        </Link>
+        {/* Center: Title */}
+        <h4 className="header-title">🎓 STUDENT CAMPUS PORTAL</h4>
+
+        {/* Right: Notification & Logout */}
+        <div className="right-section">
+          <Link to="announcements" className="notification-container">
+            <FaBell className="notification-bell" />
+            <span className="notification-count">3</span>
+          </Link>
+          <Link to="/" className="nav-link logout-button" onClick={handleLogout}>
+            <FiLogOut className="logout-icon" /> Logout
+          </Link>
+        </div>
       </div>
     </header>
   );

@@ -1,0 +1,164 @@
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height of the viewport */
+    background-color: #f3f4f6;
+  }
+  
+  /* Main area (sidebar + content) */
+  .dashboard-main {
+    display: flex;
+    flex: 1;
+    overflow: hidden; /* Keeps scroll inside the content */
+  }
+  
+  /* Header Styling */
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e40af;
+    padding: 16px 32px;
+    color: #fff;
+  }
+  
+  .header-content h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+/* Sidebar styling */
+.dashboard-sidebar {
+  width: 256px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  position: relative;
+  height: 100vh; /* Full height of the viewport */
+  flex-shrink: 0; /* Prevent shrinking */
+  display: block; /* Ensure sidebar is visible */
+  overflow-y: auto; /* Ensure the sidebar can scroll if the content overflows */
+}
+/* Nav styling */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav-icon {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  
+  /* Sidebar Navigation Items */
+  .nav-item {
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px; /* space between icon and label */
+    color: #4b5563;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .nav-item:hover {
+    background-color: #e5e7eb;
+    color: #1e40af;
+  }
+  
+  .nav-item.active {
+    background-color: #bfdbfe;
+    color: #1e40af;
+    font-weight: 600;
+  }
+  
+  /* Content Styling */
+  .dashboard-content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+  }
+  
+  /* Footer Styling */
+  footer {
+    background-color: #ffffff;
+    padding: 16px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: #4b5563;
+  }
+  
+  /* For larger screens (md and above), show sidebar */
+  @media (min-width: 768px) {
+    .dashboard-sidebar {
+      display: block;
+    }
+  
+    .dashboard-main {
+      display: flex;
+    }
+  
+    .dashboard-sidebar {
+      position: relative;
+      height: 100vh;
+    }
+  
+    .dashboard-content {
+      margin-left: 0;
+    }
+  }
+  
+  /* For small screens, make sidebar toggleable */
+  @media (max-width: 767px) {
+    .dashboard-sidebar {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200px;
+      height: 100vh;
+      background-color: #ffffff;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      transition: left 0.3s ease;
+      padding: 16px;
+    }
+  
+    .dashboard-sidebar.show {
+      left: 0;
+    }
+  
+    .dashboard-main {
+      margin-left: 0;
+      transition: margin-left 0.3s ease;
+    }
+  
+    .nav-link {
+      font-size: 16px;
+    }
+  }
+  
+  /* Sidebar Toggle Button Styling (only for small screens) */
+  .sidebar-toggle-btn {
+    display: none;
+  }
+  
+  @media (max-width: 767px) {
+    .sidebar-toggle-btn {
+      display: block;
+      background-color: #1e40af;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  }
+  

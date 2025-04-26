@@ -1,33 +1,57 @@
 import React from 'react';
 import '../../styles/student/DashboardHome.css';
+import { FaBookOpen, FaCalendarAlt, FaTools, FaBullhorn } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom for navigation
 
 const DashboardHome = () => {
   return (
     <div className="dashboard-home">
       <div className="welcome-message">
         <h2>Good evening, John Student!</h2>
-        <p>Here's an overview of your campus activities and services.</p>
+     
       </div>
 
-      <div className="dashboard-sections">
-        <div className="card">
-          <h3>Room Booking</h3>
-          <p>Book a room</p>
+      {/* Statistics Overview */}
+      <div className="dashboard-stats">
+        <div className="stat-card">
+          <Link to="rooms"> {/* Link to the room bookings page */}
+            <FaBookOpen />
+            <div>
+              <h4>Room Bookings</h4>
+              <p>3 Upcoming</p>
+            </div>
+          </Link>
         </div>
-        <div className="card">
-          <h3>Class Schedule</h3>
-          <p>View timetable</p>
+        <div className="stat-card">
+          <Link to="/class-schedule"> {/* Link to the class schedule page */}
+            <FaCalendarAlt />
+            <div>
+              <h4>Classes Today</h4>
+              <p>2 Scheduled</p>
+            </div>
+          </Link>
         </div>
-        <div className="card">
-          <h3>Maintenance</h3>
-          <p>Report an issue</p>
+        <div className="stat-card">
+          <Link to="/maintenance"> {/* Link to the maintenance page */}
+            <FaTools />
+            <div>
+              <h4>Maintenance</h4>
+              <p>1 Pending</p>
+            </div>
+          </Link>
         </div>
-        <div className="card">
-          <h3>Announcements</h3>
-          <p>Campus updates</p>
+        <div className="stat-card">
+          <Link to="announcements"> {/* Link to the announcements page */}
+            <FaBullhorn />
+            <div>
+              <h4>New Announcements</h4>
+              <p>3 Recent</p>
+            </div>
+          </Link>
         </div>
       </div>
 
+      {/* Other Sections */}
       <div className="dashboard-lists">
         <section>
           <h4>Upcoming Bookings</h4>
@@ -35,7 +59,10 @@ const DashboardHome = () => {
             <strong>Apr 21</strong>
             <p>Room Booking<br />14:00 - 16:00<br />Approved</p>
           </div>
-          <button>View all bookings</button>
+          <Link to="view-rooms" className="dashboard-link-button">
+           View all bookings
+          </Link> 
+
         </section>
 
         <section>
@@ -44,7 +71,10 @@ const DashboardHome = () => {
             <li><strong>Projector not working</strong> – Electrical – Assigned – High</li>
             <li><strong>Broken chair</strong> – Furniture – Reported – Medium</li>
           </ul>
-          <button>View all maintenance requests</button>
+          <Link to="issues" className="dashboard-link-button">
+            View all maintenance requests
+          </Link>
+
         </section>
 
         <section>
@@ -52,9 +82,13 @@ const DashboardHome = () => {
           <ul>
             <li><strong>Library Hours Extended</strong> – 2 hours ago – The main library will remain open until midnight during finals week.</li>
             <li><strong>WiFi Maintenance Scheduled</strong> – 1 day ago – Campus WiFi will be undergoing maintenance on Saturday from 7 AM to 9 AM.</li>
-            <li><strong>Career Fair Next Week</strong> – 2 days ago – Don’t miss the annual career fair in the Student Center next Wednesday!</li>
+          
           </ul>
-          <button>View all announcements</button>
+          
+         <Link to="announcements" className="dashboard-link-button">
+            View all announcements
+         </Link>
+
         </section>
       </div>
     </div>

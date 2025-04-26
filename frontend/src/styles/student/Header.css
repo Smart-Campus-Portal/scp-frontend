@@ -1,0 +1,104 @@
+.dashboard-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background-color: #1e40af;
+    padding: 0 24px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Left: Greeting */
+.left-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.greeting-text {
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+/* Center: Title */
+.header-title {
+    flex: 2;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Right: Notification + Logout */
+.right-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+}
+
+/* Notification Styles */
+.notification-container {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.notification-bell {
+    font-size: 1.4rem;
+    color: white;
+}
+
+.notification-count {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+    min-width: 18px;
+    text-align: center;
+    line-height: 1;
+}
+
+/* Logout */
+.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    gap: 0.4rem;
+    padding: 0;
+    text-decoration: none;
+}
+
+.logout-button:hover {
+    color: #ff4d4f;
+}
+
+.logout-icon {
+    font-size: 1.2rem;
+}
