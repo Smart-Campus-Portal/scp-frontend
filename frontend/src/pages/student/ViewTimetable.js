@@ -2,14 +2,15 @@ import React from 'react';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
+import { timetableData } from '../../dummyData/timetableData'; // ✅ correct import
 import '../../styles/student/ViewTimetable.css';
 
 const ViewTimetable = () => {
   const handleDownloadPDF = () => {
-    const input = document.querySelector('.timetable-container');
+    const tableWrapper = document.querySelector('.timetable-wrapper');
 
-    html2canvas(input, {
-      scale: 2, // higher scale for better quality
+    html2canvas(tableWrapper, {
+      scale: 2,
       useCORS: true,
     }).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
@@ -28,18 +29,8 @@ const ViewTimetable = () => {
   };
 
   const handleDownloadExcel = () => {
-    const timetableData = [
-      ['Time', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      ['8:00 AM - 9:30 AM', 'Computer Science 101 (Room 101)', 'Mathematics 102 (Room 204)', 'Biology 103 (Room 305)', 'Chemistry 104 (Room 406)', 'English Literature 105 (Room 507)'],
-      ['9:45 AM - 11:15 AM', 'Physics 201 (Room 202)', 'Computer Science 202 (Room 103)', 'Mathematics 203 (Room 204)', 'Biology 204 (Room 305)', 'Chemistry 205 (Room 406)'],
-      ['11:30 AM - 1:00 PM', 'History 101 (Room 101)', 'Philosophy 102 (Room 203)', 'Physics 103 (Room 202)', 'English Literature 104 (Room 507)', 'Computer Science 105 (Room 103)'],
-      ['1:30 PM - 3:00 PM', 'Mathematics 201 (Room 204)', 'History 102 (Room 101)', 'Philosophy 103 (Room 203)', 'Chemistry 204 (Room 406)', 'Biology 205 (Room 305)'],
-      ['3:15 PM - 4:45 PM', 'Political Science 101 (Room 309)', 'Mathematics 202 (Room 204)', 'History 103 (Room 101)', 'Physics 104 (Room 202)', 'English Literature 105 (Room 507)']
-    ];
-
-    const ws = XLSX.utils.aoa_to_sheet(timetableData);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Timetable');
+    const table = document.querySelector('.timetable-full-table');
+    const wb = XLSX.utils.table_to_book(table, { sheet: 'Timetable' });
     XLSX.writeFile(wb, 'student_timetable.xlsx');
   };
 
@@ -55,9 +46,14 @@ const ViewTimetable = () => {
         <button onClick={handleDownloadExcel} className="download-button">Download as Excel</button>
       </div>
 
-      <div className="timetable-scroll-wrapper pdf-friendly">
-        <table className="timetable-table">
+      <div className="timetable-wrapper pdf-friendly">
+        <table className="timetable-full-table">
           <thead>
+            <tr>
+              <th colSpan="6" style={{ textAlign: 'center', fontSize: '18px', padding: '10px 0' }}>
+                Course: {timetableData.courseInfo}
+              </th>
+            </tr>
             <tr>
               <th>Time</th>
               <th>Monday</th>
@@ -68,46 +64,16 @@ const ViewTimetable = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>8:00 AM - 9:30 AM</td>
-              <td>Computer Science 101 (Room 101)</td>
-              <td>Mathematics 102 (Room 204)</td>
-              <td>Biology 103 (Room 305)</td>
-              <td>Chemistry 104 (Room 406)</td>
-              <td>English Literature 105 (Room 507)</td>
-            </tr>
-            <tr>
-              <td>9:45 AM - 11:15 AM</td>
-              <td>Physics 201 (Room 202)</td>
-              <td>Computer Science 202 (Room 103)</td>
-              <td>Mathematics 203 (Room 204)</td>
-              <td>Biology 204 (Room 305)</td>
-              <td>Chemistry 205 (Room 406)</td>
-            </tr>
-            <tr>
-              <td>11:30 AM - 1:00 PM</td>
-              <td>History 101 (Room 101)</td>
-              <td>Philosophy 102 (Room 203)</td>
-              <td>Physics 103 (Room 202)</td>
-              <td>English Literature 104 (Room 507)</td>
-              <td>Computer Science 105 (Room 103)</td>
-            </tr>
-            <tr>
-              <td>1:30 PM - 3:00 PM</td>
-              <td>Mathematics 201 (Room 204)</td>
-              <td>History 102 (Room 101)</td>
-              <td>Philosophy 103 (Room 203)</td>
-              <td>Chemistry 204 (Room 406)</td>
-              <td>Biology 205 (Room 305)</td>
-            </tr>
-            <tr>
-              <td>3:15 PM - 4:45 PM</td>
-              <td>Political Science 101 (Room 309)</td>
-              <td>Mathematics 202 (Room 204)</td>
-              <td>History 103 (Room 101)</td>
-              <td>Physics 104 (Room 202)</td>
-              <td>English Literature 105 (Room 507)</td>
-            </tr>
+            {timetableData.schedule.map((row, index) => (
+              <tr key={index}>
+                <td>{row.time}</td>
+                <td>{row.monday}</td>
+                <td>{row.tuesday}</td>
+                <td>{row.wednesday}</td>
+                <td>{row.thursday}</td>
+                <td>{row.friday}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

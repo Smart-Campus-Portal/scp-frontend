@@ -1,29 +1,11 @@
 import React, { useState } from 'react';
 import '../../styles/student/ViewRooms.css';
+import { bookedRoomsData } from '../../dummyData/bookedRoomsData'; // ✅ Import dummy data
 
 const ViewRooms = () => {
-  const bookedRooms = [
-    {
-      id: 1,
-      roomType: 'Small Room',
-      date: '2025-04-25',
-      time: '10:00 AM',
-      duration: '2 hours',
-      details: 'Group project discussion',
-    },
-    {
-      id: 2,
-      roomType: 'Medium Room',
-      date: '2025-04-28',
-      time: '02:30 PM',
-      duration: '3 hours',
-      details: 'Study session before exams',
-    },
-  ];
-
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredRooms = bookedRooms.filter((room) =>
+  const filteredRooms = bookedRoomsData.filter((room) =>
     room.roomType.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

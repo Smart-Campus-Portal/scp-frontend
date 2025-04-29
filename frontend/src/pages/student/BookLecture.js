@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FaEnvelope, FaCalendarAlt, FaClock, FaInfoCircle, FaBookOpen } from 'react-icons/fa';
 import '../../styles/student/BookLecture.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Important to import toastify styles
 
 const BookLecture = () => {
   const [course, setCourse] = useState('');
@@ -9,7 +11,6 @@ const BookLecture = () => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [details, setDetails] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,26 +21,39 @@ const BookLecture = () => {
       .map((n) => n.charAt(0).toUpperCase() + n.slice(1))
       .join(' ');
 
-    setSuccessMessage(
-      `🎉 Your lecture appointment has been successfully sent to ${formattedName} (${lecturerEmail}).`
+    // Log appointment info
+    console.log('📚 Lecture Appointment Booked:', {
+      course,
+      module,
+      lecturerName: formattedName,
+      lecturerEmail,
+      date,
+      time,
+      details,
+    });
+
+    // Show toast notification
+    toast.success(
+      `✅ Your appointment request has been sent to ${formattedName}!`,
+      {
+        position: 'top-center',
+        autoClose: 3000,
+      }
     );
 
+    // Reset form fields
     setCourse('');
     setModule('');
     setLecturerEmail('');
     setDate('');
     setTime('');
     setDetails('');
-
-    setTimeout(() => setSuccessMessage(''), 4000);
   };
 
   return (
     <div className="book-lecture-wrapper">
       <div className="book-lecture-container">
         <h1 className="book-lecture-title">📚 Book Lecture Appointment</h1>
-
-        {successMessage && <div className="success-message">{successMessage}</div>}
 
         <form onSubmit={handleSubmit} className="book-lecture-form">
           <div className="form-group">
@@ -126,6 +140,9 @@ const BookLecture = () => {
             Book Appointment
           </button>
         </form>
+
+        {/* Toast popup */}
+        <ToastContainer />
       </div>
     </div>
   );

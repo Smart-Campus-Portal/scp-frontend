@@ -60,37 +60,48 @@
 }
 
 /* Table Scroll Wrapper */
-.timetable-scroll-wrapper {
+.timetable-wrapper {
   overflow-x: auto;
   width: 100%;
   border: 1px solid #ddd;
   border-radius: 6px;
   margin-top: 16px;
+  background-color: #f9f9f9;
 }
 
 /* Table */
-.timetable-table {
+.timetable-full-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 1rem;
 }
 
-.timetable-table th,
-.timetable-table td {
-  padding: 10px 16px;
+.timetable-full-table th,
+.timetable-full-table td {
+  padding: 12px 18px;
   text-align: center;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
+  /* Stronger borders */
   color: #333;
 }
 
-.timetable-table thead th {
+.timetable-full-table thead th {
   background-color: #1c73ca;
   color: #fff;
   text-transform: uppercase;
-  font-size: 0.95rem;
+  font-size: 1rem;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 2;
+}
+
+/* Special Styling for Course Info Row */
+.timetable-full-table thead tr:first-child th {
+  background-color: #f1f5f9;
+  color: #1e293b;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-bottom: 2px solid #1c73ca;
 }
 
 /* Responsive Layout */
@@ -116,9 +127,9 @@
     width: 100%;
   }
 
-  .timetable-table th,
-  .timetable-table td {
+  .timetable-full-table th,
+  .timetable-full-table td {
     font-size: 0.85rem;
-    padding: 8px 12px;
+    padding: 10px 14px;
   }
 }

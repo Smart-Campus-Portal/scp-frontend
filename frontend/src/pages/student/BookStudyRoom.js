@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import '../../styles/student/BookStudyRoom.css'; // Ensure the CSS path is correct
+import axios from 'axios';  // Import axios
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Don't forget to import the CSS
 
 const BookStudyRoom = () => {
   const [roomType, setRoomType] = useState('');
@@ -7,31 +10,71 @@ const BookStudyRoom = () => {
   const [time, setTime] = useState('');
   const [duration, setDuration] = useState('');
   const [details, setDetails] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [showConfirmation, setShowConfirmation] = useState(false); // For confirmation popup visibility
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [studentId] = useState(1); // Assuming a student ID is available, this can be dynamic depending on user login
+  
+  // Replace with actual room ID that is selected or available
+  const roomId = roomType === 'small' ? 1 : roomType === 'medium' ? 2 : 3;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setShowConfirmation(true); // Show confirmation popup
   };
 
-  const handleConfirmation = (confirm) => {
+  const handleConfirmation = async (confirm) => {
     setShowConfirmation(false);
     if (confirm) {
-      setSuccessMessage('Your study room has been successfully booked!');
-      setRoomType('');
-      setDate('');
-      setTime('');
-      setDuration('');
-      setDetails('');
+      const startTime = `${date}T${time}:00`; // Combine date and time
+      const endTime = new Date(new Date(startTime).getTime() + duration * 60 * 60 * 1000).toISOString(); // Calculate end time based on duration
+
+      // Prepare the request data
+      const bookingRequest = {
+        studentId,
+        roomId,
+        startTime, // Start time in ISO 8601 format
+        endTime, // End time in ISO 8601 format
+      };
+
+      try {
+        // Make the POST request to the backend API
+        const response = await axios.post('http://localhost:8267/api/student/book-study-room', bookingRequest, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('authToken')}`, // Add authorization header if needed
+          },
+        });
+
+        // Handle successful booking
+        toast.success(`✅ Study room booked successfully for ${startTime} to ${endTime}!`, {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+
+        // Optionally reset the form fields after successful booking
+        setRoomType('');
+        setDate('');
+        setTime('');
+        setDuration('');
+        setDetails('');
+      }catch (error) {
+  console.error(error); // Always log full error for dev
+  const message =
+    error.response && error.response.data
+      ? error.response.data.message || 'Unknown error'
+      : 'Server is unreachable';
+
+  toast.error(`❌ ${message}`, {
+    position: 'top-center',
+    autoClose: 3000,
+  });
+}
+
     }
   };
 
   return (
     <div className="book-study-room-container">
-      <h4 className="book-study-room-title">Book Study Room</h4>
-
-      {successMessage && <div className="success-message">{successMessage}</div>}
+      <h4 className="book-study-room-title">📖 Book Study Room</h4>
 
       <form onSubmit={handleSubmit} className="book-study-room-form">
         <div className="form-group">
@@ -119,7 +162,7 @@ const BookStudyRoom = () => {
         <div className="confirmation-popup">
           <div className="confirmation-content">
             <p>
-              Are you sure you want to book a {roomType} for {duration} hour(s) on {date} at {time}?
+              Are you sure you want to book a <strong>{roomType}</strong> for <strong>{duration}</strong> hour(s) on <strong>{date}</strong> at <strong>{time}</strong>?
             </p>
             <button onClick={() => handleConfirmation(true)} className="confirm-button">
               <i className="fas fa-check"></i> Yes
@@ -130,6 +173,9 @@ const BookStudyRoom = () => {
           </div>
         </div>
       )}
+
+      {/* Toast Container */}
+      <ToastContainer />
     </div>
   );
 };

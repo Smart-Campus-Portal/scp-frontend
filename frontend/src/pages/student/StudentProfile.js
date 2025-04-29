@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import '../../styles/student/StudentProfile.css';
 import { FaUser, FaEnvelope, FaPhoneAlt, FaLock } from 'react-icons/fa';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { studentProfileData } from '../../dummyData/studentProfileData'; // ✅ correct import
 
 function StudentProfile() {
-  const [studentData, setStudentData] = useState({
-    name: 'Prince',
-    lastname: 'Khomu',
-    email: 'prince.khomu@example.com',
-    phoneNumber: '+27 82 123-4567',
-  });
-
+  const [studentData, setStudentData] = useState(studentProfileData); // ✅ using dummy data
   const [passwords, setPasswords] = useState({
     oldPassword: '',
     newPassword: '',
@@ -27,8 +24,18 @@ function StudentProfile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You'd send `studentData` and `passwords` to backend here
-    alert('Profile updated!');
+    
+    console.log('📩 Profile updated:', { ...studentData, ...passwords });
+
+    toast.success(`✅ Profile updated successfully!`, {
+      position: 'top-center',
+      autoClose: 3000,
+    });
+
+    setPasswords({
+      oldPassword: '',
+      newPassword: '',
+    });
   };
 
   return (
@@ -99,6 +106,9 @@ function StudentProfile() {
 
         <button type="submit" className="save-button">Save Changes</button>
       </form>
+
+      {/* Toast Container to display the toast */}
+      <ToastContainer />
     </div>
   );
 }
