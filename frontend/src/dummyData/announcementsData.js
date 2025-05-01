@@ -1,4 +1,4 @@
-// src/data/dummyData.js
+
 
 export const timetableData = {
   courseInfo: 'B.Sc Computer Science - Semester 2',
@@ -36,4 +36,10 @@ export const announcementsData = [
     content:
       "Join us for a guest lecture on Artificial Intelligence on April 28th at 10 AM in the main auditorium.",
   },
+   {
+    id: 5,
+    title: "Lecture",
+    date: "2025-05-01",
+    content:
+"Chair is broken "  },
 ];
