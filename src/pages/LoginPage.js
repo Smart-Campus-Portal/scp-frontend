@@ -1,44 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Login.css';
+import { signIn } from '../api';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    role: 'student',
+    password: ''
   });
 
   const navigate = useNavigate();
 
   useEffect(() => {
     // Clear any previous login state when visiting the login page
-    localStorage.removeItem('loggedIn');
-    localStorage.removeItem('userRole');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    try {
+      // Prepare login data to match Spring Boot's AuthRequest structure
+      const authRequest = {
+        email: formData.email,
+        password: formData.password,
+      };
+      
+      // Call the signIn API with the AuthRequest object
+      const response = await signIn(authRequest);
+      console.log(response.data);
+  
+      // Extract the token and role from the response
+      const token = response.data.token;
+      const role = response.data.user.role;
 
-    localStorage.setItem('loggedIn', 'true');
-    localStorage.setItem('userRole', formData.role);
+      // Store the token and role in sessionStorage
+      sessionStorage.setItem('token', token);
+      sessionStorage.setItem('role', role);
 
-    switch (formData.role) {
-      case 'student':
-        navigate('/studentDashboard');
-        break;
-      case 'lecture':
-        navigate('/lecturerDashboard');
-        break;
-      case 'admin':
-        navigate('/adminDashboard');
-        break;
-      default:
-        alert('Unknown role selected!');
+      localStorage.setItem('loggedIn', 'true');
+      // fix based on user role
+      localStorage.setItem('userRole', 'student');
+  
+      // Navigate based on role
+      switch (role) {
+        case 'ROLE_STUDENT':
+          navigate('/studentDashboard');
+          break;
+        case 'ROLE_LECTURER':
+          navigate('/lecturerDashboard');
+          break;
+        case 'ROLE_ADMIN':
+          navigate('/adminDashboard');
+          break;
+        default:
+          alert('Unknown role selected!');
+      }
+      
+    } catch (error) {
+      console.error('Login failed:', error.response?.data || error.message);
+      alert('Login failed. Please check your credentials.');
     }
   };
 
@@ -67,17 +93,6 @@ const LoginPage = () => {
             required
             className="login-input"
           />
-
-          <select
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-            className="login-select"
-          >
-            <option value="student">Student</option>
-            <option value="lecture">Lecturer</option>
-            <option value="admin">Administrator</option>
-          </select>
 
           <button type="submit" className="login-button">Login</button>
 
