@@ -1,13 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/student/ViewReportedIssues.css';
-import { reportedIssuesData } from '../../dummyData/reportedIssuesData'; // ✅ Import dummy data
 
 function ViewReportedIssues() {
+  const [issues, setIssues] = useState([]);
   const [statusFilter, setStatusFilter] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredIssues = reportedIssuesData.filter((issue) => {
-    const matchStatus = statusFilter ? issue.status === statusFilter : true;
+  useEffect(() => {
+    const fetchIssues = async () => {
+      try {
+        const response = await fetch('http://localhost:8267/api/maintenance/issues?reporterId=2', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJCb2lrYW55b0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TVFVERU5UIn1dLCJpYXQiOjE3NDYzMzUwNDAsImV4cCI6MTc0NjQyMTQ0MH0.0a7-pSP6bPl6Xu4jUbbgz30KMW3GfT64haPAf72JeBc'
+          }
+        });
+
+        if (!response.ok) throw new Error('Failed to fetch issues');
+
+        const data = await response.json();
+        setIssues(data);
+      } catch (error) {
+        console.error('Error fetching issues:', error);
+      }
+    };
+
+    fetchIssues();
+  }, []);
+
+  const filteredIssues = issues.filter((issue) => {
+    const matchStatus = statusFilter ? issue.status === statusFilter.toUpperCase() : true;
     const matchSearch = searchQuery
       ? Object.values(issue)
           .join(' ')
@@ -29,15 +51,14 @@ function ViewReportedIssues() {
     <div className="reported-issues-container">
       <h2>Reported Issues</h2>
 
-      {/* Filters */}
       <div className="filters">
         <div>
           <label>Status:</label>
           <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
             <option value="">All</option>
-            <option value="Open">Open</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Resolved">Resolved</option>
+            <option value="REPORTED">Reported</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="RESOLVED">Resolved</option>
           </select>
         </div>
 
@@ -45,7 +66,7 @@ function ViewReportedIssues() {
           <label>Search:</label>
           <input
             type="text"
-            placeholder="Search by title, lecture, lecturer..."
+            placeholder="Search issues..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -54,20 +75,21 @@ function ViewReportedIssues() {
 
       <ul className="issues-list">
         {filteredIssues.length > 0 ? (
-          filteredIssues.map((issue, index) => (
-            <li key={index} className="issue-item">
-              <h3>{issue.title}</h3>
-              <p><strong>Lecture:</strong> {issue.lecture}</p>
-              <p><strong>Lecturer:</strong> {issue.lecturer}</p>
-              <p><strong>Reported on:</strong> {formatDateTime(issue.dateReported)}</p>
+          filteredIssues.map((issue) => (
+            <li key={issue.id} className="issue-item">
+              <h3>{issue.category}</h3>
+              <p><strong>Priority:</strong> {issue.priority}</p>
+              <p><strong>Reported on:</strong> {formatDateTime(issue.createdAt)}</p>
               <p>{issue.description}</p>
               <span className={`issue-status status-${issue.status.toLowerCase().replace(/\s/g, '-')}`}>
-                {issue.status === 'Open' ? '🟥' : issue.status === 'In Progress' ? '🟨' : '🟩'} {issue.status}
+                {issue.status === 'REPORTED' ? '🟥' : issue.status === 'IN_PROGRESS' ? '🟨' : '🟩'} {issue.status}
               </span>
             </li>
           ))
         ) : (
-          <p style={{ marginTop: '2rem', textAlign: 'center', color: '#999' }}>No issues match the selected filters.</p>
+          <p style={{ marginTop: '2rem', textAlign: 'center', color: '#999' }}>
+            No issues match the selected filters.
+          </p>
         )}
       </ul>
     </div>

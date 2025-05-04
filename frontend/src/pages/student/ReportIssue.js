@@ -6,7 +6,7 @@ import '../../styles/student/ReportIssue.css';
 
 const ReportIssue = () => {
   const [formData, setFormData] = useState({
-    issueCategory: '',
+    category: '',
     priority: '',
     description: '',
   });
@@ -19,26 +19,49 @@ const ReportIssue = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.issueCategory || !formData.priority || !formData.description) {
+    if (!formData.category || !formData.priority || !formData.description) {
       toast.error('⚠️ Please fill out all fields.', { position: 'top-center' });
       return;
     }
 
-    console.log('📩 Submitted Report:', formData);
+    const newIssue = {
+      ...formData,
+      status: 'REPORTED',
+      created_at: new Date().toISOString(),
+      reporterId: 2 // TODO: Replace with dynamic user ID from auth/session
+    };
 
-    toast.success(
-      `✅ ${formData.issueCategory} issue (Priority: ${formData.priority}) reported successfully!`,
-      { position: 'top-center', autoClose: 3000 }
-    );
+    try {
+      const response = await fetch('http://localhost:8267/api/maintenance/report-issue', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJCb2lrYW55b0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TVFVERU5UIn1dLCJpYXQiOjE3NDYzMzUwNDAsImV4cCI6MTc0NjQyMTQ0MH0.0a7-pSP6bPl6Xu4jUbbgz30KMW3GfT64haPAf72JeBc'
+        },
+        body: JSON.stringify(newIssue)
+      });
 
-    setFormData({
-      issueCategory: '',
-      priority: '',
-      description: '',
-    });
+      if (!response.ok) {
+        throw new Error('Failed to submit issue');
+      }
+
+      toast.success(
+        `✅ ${formData.category} issue (Priority: ${formData.priority}) reported successfully!`,
+        { position: 'top-center', autoClose: 3000 }
+      );
+
+      setFormData({
+        category: '',
+        priority: '',
+        description: '',
+      });
+    } catch (error) {
+      toast.error('❌ Failed to report the issue.', { position: 'top-center' });
+      console.error('API error:', error);
+    }
   };
 
   return (
@@ -51,27 +74,29 @@ const ReportIssue = () => {
       </div>
 
       <p className="report-description">
-        If you're experiencing any issues related to lectures, lecturers, or facilities, please submit them below.
+        If you're experiencing any issues related to facilities, safety, or systems, please report them below.
       </p>
 
       <ToastContainer />
 
       <form className="report-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="issueCategory" className="form-label">Issue Category</label>
+          <label htmlFor="category" className="form-label">Issue Category</label>
           <select
-            id="issueCategory"
-            name="issueCategory"
-            value={formData.issueCategory}
+            id="category"
+            name="category"
+            value={formData.category}
             onChange={handleChange}
             className="form-input"
             required
           >
             <option value="">Select a category</option>
-            <option value="Lecturer">Lecturer</option>
-            <option value="Lecture Room">Lecture Room</option>
-            <option value="Course Material">Course Material</option>
-            <option value="App Functionality">App Functionality</option>
+            <option value="Cleaning & Sanitation">Cleaning & Sanitation</option>
+            <option value="Facilities & Infrastructure">Facilities & Infrastructure</option>
+            <option value="IT & Technical Support">IT & Technical Support</option>
+            <option value="Safety & Security">Safety & Security</option>
+            <option value="Smart Systems / IoT Devices">Smart Systems / IoT Devices</option>
+            <option value="Software & Portal Issues">Software & Portal Issues</option>
           </select>
         </div>
 
@@ -86,9 +111,9 @@ const ReportIssue = () => {
             required
           >
             <option value="">Select priority</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
           </select>
         </div>
 

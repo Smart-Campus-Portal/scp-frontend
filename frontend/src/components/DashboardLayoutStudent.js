@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { FaChartPie ,FaHome, FaCalendarAlt, FaChalkboardTeacher, FaExclamationCircle, FaDoorOpen, FaBookReader, FaUser } from 'react-icons/fa';
+import { FaChartPie ,FaHome, FaCalendarAlt, FaChalkboardTeacher, FaExclamationCircle, FaBookReader, FaUser } from 'react-icons/fa';
 import Header from './Header';
 import '../styles/student/DashboardLayoutStudent.css';
 
@@ -10,8 +10,8 @@ const navItems = [
   { path: 'view-timetable', label: 'View Class Timetable', icon: <FaCalendarAlt /> },
   { path: 'lecture-schedule', label: 'View Lecture Schedule', icon: <FaChalkboardTeacher /> },
   { path: 'book-lecture', label: 'Book Lecture Appointment', icon: <FaBookReader /> },
-  { path: 'book-study-room', label: 'Book Study Room', icon: <FaDoorOpen /> },
   { path: 'report-issue', label: 'Report An Issue', icon: <FaExclamationCircle /> },
+  {path:'available-rooms', label:'Available Study Rooms',icon:<FaExclamationCircle />},
 
   { path: 'profile', label: 'Profile', icon: <FaUser /> },
   

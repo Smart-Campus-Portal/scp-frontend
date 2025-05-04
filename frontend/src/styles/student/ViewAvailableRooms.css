@@ -1,0 +1,117 @@
+/* src/styles/student/ViewAvailableRooms.css */
+
+.available-rooms-container {
+    padding: 2rem;
+    max-width: 900px;
+    margin: auto;
+    background-color: #f9f9fb;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #2e3a59;
+}
+
+.loading,
+.no-rooms {
+    text-align: center;
+    color: #777;
+    font-size: 1.1rem;
+}
+
+.room-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.room-card {
+    background-color: #ffffff;
+    border-left: 5px solid #4a90e2;
+    padding: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-4px);
+}
+
+.room-name {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 1.3rem;
+}
+
+.room-description,
+.room-location,
+.room-capacity {
+    margin: 0.3rem 0;
+    color: #555;
+    font-size: 0.95rem;
+}
+.time-inputs {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.time-inputs div {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-inputs label {
+    margin-bottom: 0.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.time-inputs input {
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.time-inputs button {
+    padding: 0.5rem 1rem;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1.3rem;
+}
+
+.time-inputs button:hover {
+    background-color: #3c7dc9;
+}
+
+.error {
+    color: red;
+    font-weight: 500;
+    margin: 1rem 0;
+}
+.book-room-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #3c7dc9;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.book-room-button:hover {
+    background-color: #164ba7;
+}

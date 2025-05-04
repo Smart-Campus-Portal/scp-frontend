@@ -18,6 +18,8 @@ import StudentProfile from './pages/student/StudentProfile';
 import ViewReportedIssues from './pages/student/ViewReportedIssues';
 import ReportIssue from './pages/student/ReportIssue';
 import Announcement from './pages/student/Announcement';
+import ViewAvailableRooms from './pages/student/ViewAvailableRooms';
+
 
 // Other Dashboards
 import LecturerDashboard from './pages/lecturer/LecturerDashboard';
@@ -47,6 +49,7 @@ const App = () => {
           <Route path="view-rooms" element={<ViewRooms />} />
           <Route path="profile" element={<StudentProfile />} />
           <Route path="issues" element={<ViewReportedIssues />} />
+          <Route  path='available-rooms' element={<ViewAvailableRooms />}/>
           <Route path="report-issue" element={<ReportIssue />} />
           <Route path="announcements" element={<Announcement />} />
         </Route>
