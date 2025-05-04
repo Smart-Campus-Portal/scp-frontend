@@ -1,0 +1,91 @@
+.tt-page-layout{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    .tt-page-side{
+        display: flex;
+        flex: 3;
+        overflow: hidden;
+    }
+
+    .tt-page-content {
+        flex: 1;
+        padding: 1rem;
+        overflow-y: auto;
+        background-color: #F0F0F0;
+    }
+}
+
+.lect_timetable{
+    margin-top: 100px;
+    height: 85vh;
+    width: 80vw;
+    background-color: #ffffff;
+    padding: 30px;
+    overflow-y: auto;
+    border: 1px #ffffff;
+    border-radius: 20px;
+    overflow-y: auto;
+
+    .tt-headings{
+        color: #000000;
+        color: #1e3a8a;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 70px;
+    }
+
+    td{
+        text-align: center;
+        padding: 20px;
+        font-size: 20px;
+    }
+
+    th {
+        height: 40px;
+        background-color: #1E90FF;
+        color: white;
+        font-size: 20px;
+    }
+
+    .edit-btn{
+        width: 80px;
+        height: 40px;
+        font-size: 20px;
+        margin-top: 8px;
+        background-color: #1E90FF;
+        border: 1px;
+        border-color: #1E90FF;
+        cursor: pointer;
+    }
+
+
+    .edit-form-div{
+        width: 95rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+        margin-top: 40px;
+
+        .class-input {
+            height: 40px;
+            width: 25rem;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .save-btn{
+            height: 40px;
+            width: 15rem;
+            font-size: 20px;
+            margin-left: 70px;
+            border: 1px;
+            border-radius: 10px;
+            background-color: #1E90FF;
+            
+        }
+    }
+}
