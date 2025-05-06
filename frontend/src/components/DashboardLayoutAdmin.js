@@ -1,9 +1,19 @@
 import React from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import { FaTachometerAlt, FaFileAlt, FaBug, FaUsers, FaUserEdit, FaUserTimes, FaUserPlus, FaSignOutAlt } from 'react-icons/fa';
+import {
+  FaTachometerAlt,
+  FaFileAlt,
+  FaBug,
+  FaUsers,
+  FaUserEdit,
+  FaUserTimes,
+  FaUserPlus,
+  FaSignOutAlt
+} from 'react-icons/fa';
+
 import Header from './Header';
 import Footer from './Footer';
-import '../styles/admin/DashboardLayoutAdmin.css'; // Updated path
+import '../styles/admin/DashboardLayoutAdmin.css'; // Adjust if your path differs
 
 const navItems = [
   { path: '', label: 'Dashboard', icon: <FaTachometerAlt /> },
@@ -19,10 +29,11 @@ const navItems = [
 const DashboardLayoutAdmin = () => {
   const location = useLocation();
 
-  // Helper function to check active link
+  // Check if the current path matches this nav item's path
   const isActive = (path) => {
-    if (path === '') return location.pathname === '/';
-    return location.pathname.includes(path);
+    const fullPath = `/adminDashboard/${path}`;
+    if (path === '') return location.pathname === '/adminDashboard';
+    return location.pathname === fullPath;
   };
 
   return (
@@ -35,7 +46,7 @@ const DashboardLayoutAdmin = () => {
             {navItems.map((item) => (
               <Link
                 key={item.path}
-                to={`/${item.path}`}
+                to={`/adminDashboard/${item.path}`} // Correct nested path
                 className={`nav-item ${isActive(item.path) ? 'active' : ''}`}
               >
                 <span className="nav-icon">{item.icon}</span>
@@ -46,7 +57,7 @@ const DashboardLayoutAdmin = () => {
         </aside>
 
         <div className="dashboard-content">
-          {/* This is where nested routes will be rendered */}
+          {/* Nested route content will render here */}
           <Outlet />
         </div>
       </div>
