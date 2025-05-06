@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../styles/student/ViewAvailableRooms.css';
 import axios from 'axios';
@@ -16,25 +16,30 @@ const ViewAvailableRooms = () => {
     return datetime ? `${datetime}:00` : '';
   };
 
-  const fetchAvailableRooms = async () => {
+  const fetchRooms = async (customStartTime = '', customEndTime = '') => {
     setLoading(true);
     setError('');
 
-    const formattedStartTime = formatDateTime(startTime);
-    const formattedEndTime = formatDateTime(endTime);
-
-    if (!formattedStartTime || !formattedEndTime) {
-      setError('Please select both start and end time.');
-      setLoading(false);
-      return;
-    }
-
     try {
+      let start, end;
+
+      if (customStartTime && customEndTime) {
+        start = formatDateTime(customStartTime);
+        end = formatDateTime(customEndTime);
+      } else {
+        const now = new Date();
+        const threeMonthsLater = new Date();
+        threeMonthsLater.setMonth(now.getMonth() + 3);
+
+        start = now.toISOString().slice(0, 16) + ':00';
+        end = threeMonthsLater.toISOString().slice(0, 16) + ':00';
+      }
+
       const response = await axios.post(
         'http://localhost:8267/api/student/available-study-rooms',
         {
-          startTime: formattedStartTime,
-          endTime: formattedEndTime,
+          startTime: start,
+          endTime: end,
         },
         {
           headers: {
@@ -45,10 +50,23 @@ const ViewAvailableRooms = () => {
       setRooms(response.data.data || []);
     } catch (err) {
       console.error(err);
-      setError('Failed to fetch rooms. Please check time format or server status.');
+      setError('Failed to fetch rooms. Please try again.');
     }
 
     setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchRooms(); // Fetch all rooms on initial load
+  }, []);
+
+  const handleSearch = () => {
+    if (!startTime || !endTime) {
+      setError('Please select both start and end time to filter.');
+      return;
+    }
+    setError('');
+    fetchRooms(startTime, endTime);
   };
 
   return (
@@ -62,7 +80,6 @@ const ViewAvailableRooms = () => {
             type="datetime-local"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
-            required
           />
         </div>
         <div>
@@ -71,10 +88,9 @@ const ViewAvailableRooms = () => {
             type="datetime-local"
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
-            required
           />
         </div>
-        <button onClick={fetchAvailableRooms}>Search</button>
+        <button onClick={handleSearch}>Search</button>
       </div>
 
       {loading ? (
@@ -89,17 +105,14 @@ const ViewAvailableRooms = () => {
               <p className="room-description">{room.description}</p>
               <p className="room-location"><strong>📍 Location:</strong> {room.location}</p>
               <p className="room-capacity"><strong>👥 Capacity:</strong> {room.capacity} students</p>
-           
-
-               <Link to="/studentDashboard/book-study-room" className="book-room-button">
-              📘 Book this Study Room
+              <Link to="/studentDashboard/book-study-room" className="book-room-button">
+                📘 Book this Study Room
               </Link>
-
             </div>
           ))}
         </div>
       ) : (
-        <p className="no-rooms">No rooms available for the selected time.</p>
+        <p className="no-rooms">No rooms found in this time range.</p>
       )}
     </div>
   );
