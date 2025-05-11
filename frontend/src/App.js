@@ -31,6 +31,7 @@ import ReportanIssue from './pages/admin/ReportanIssues';
 import UpdateAccountDetails from './pages/admin/UpdateAccountDetails';
 import ViewUserAccount from './pages/admin/ViewUserAccounts';
 import DashboardLayoutAdmin from './components/DashboardLayoutAdmin';
+import AdminIssueManagement from './pages/admin/AdminIssueManagement';
 
 // Lecturer Dashboard
 import LecturerDashboard from './pages/lecturer/LecturerDashboard';
@@ -107,6 +108,7 @@ const App = () => {
             <Route path="delete-user" element={<DeleteUserAccounts />} />
             <Route path="create-user" element={<CreateUserAccounts />} />
             <Route path="logout" element={<Logout />} />
+            <Route path ="update-status" element={<AdminIssueManagement/>}/>
           </Route>
 
           {/* 404 Fallback */}

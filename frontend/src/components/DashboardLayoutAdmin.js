@@ -23,6 +23,7 @@ const navItems = [
   { path: 'update-account', label: 'Update Account Details', icon: <FaUserEdit /> },
   { path: 'delete-user', label: 'Delete User Accounts', icon: <FaUserTimes /> },
   { path: 'create-user', label: 'Create User Accounts', icon: <FaUserPlus /> },
+  { path: 'update-status', label: 'Admin Issue Management', icon:<FaUserTimes/>},
   { path: 'logout', label: 'Logout', icon: <FaSignOutAlt /> },
 ];
 
