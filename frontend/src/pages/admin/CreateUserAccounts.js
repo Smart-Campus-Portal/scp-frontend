@@ -1,27 +1,16 @@
 import React, { useState } from 'react';
-import { useUserContext } from '../../Context/UserContext';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/admin/CreateUserAccounts.css'; // Fixed path to CSS file
 
-const defaultProfilePicture = 'https://media.geeksforgeeks.org/wp-content/uploads/20230817162109/user.png';
-
 const CreateUserAccounts = () => {
-  const { createUser } = useUserContext();
-
   const [form, setForm] = useState({
-    userId: '',
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    password: '',
-    confirmPassword: '',
-    role: 'Student',
-    phone: '',
-    status: 'Active',
-    profilePic: null,
+    role: 'ROLE_STUDENT',
   });
-
-  const [previewUrl, setPreviewUrl] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,148 +20,145 @@ const CreateUserAccounts = () => {
     }));
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setForm(prev => ({ ...prev, profilePic: file }));
-      setPreviewUrl(URL.createObjectURL(file));
-    } else {
-      setForm(prev => ({ ...prev, profilePic: null }));
-      setPreviewUrl('');
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (form.password !== form.confirmPassword) {
-      setError('Passwords do not match');
-      setSuccess('');
-      return;
-    }
-
     if (!/\S+@\S+\.\S+/.test(form.email)) {
-      setError('Invalid email format');
-      setSuccess('');
+      toast.error('❌ Invalid email format', {
+        position: 'top-center',
+        autoClose: 3000,
+      });
       return;
     }
 
     const userToCreate = {
-      id: form.userId,
-      fullName: form.fullName,
+      firstName: form.firstName,
+      lastName: form.lastName,
       email: form.email,
-      password: form.password,
       role: form.role,
-      phone: form.phone,
-      status: form.status,
-      profilePic: form.profilePic ? previewUrl : defaultProfilePicture,
-      createdAt: new Date().toLocaleString(),
     };
 
-    createUser(userToCreate);
+    try {
+      const token = localStorage.getItem('token');
 
-    setSuccess('User account created successfully!');
-    setError('');
+      const response = await axios.post(
+        'http://localhost:8267/api/admin/add-user',
+        userToCreate,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        toast.success(`✅ User "${form.firstName} ${form.lastName}" created successfully!`, {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+      } else {
+        toast.error('❌ Failed to create user account. Please try again.', {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      if (err.response?.status === 403) {
+        toast.error('❌ Access denied. Please check your login status.', {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+      } else {
+        toast.error('❌ Failed to create user. Please try again later.', {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+      }
+    }
+
     setForm({
-      userId: '',
-      fullName: '',
+      firstName: '',
+      lastName: '',
       email: '',
-      password: '',
-      confirmPassword: '',
-      role: 'Student',
-      phone: '',
-      status: 'Active',
-      profilePic: null,
+      role: 'ROLE_STUDENT',
     });
-    setPreviewUrl('');
   };
 
   const handleReset = () => {
     setForm({
-      userId: '',
-      fullName: '',
+      firstName: '',
+      lastName: '',
       email: '',
-      password: '',
-      confirmPassword: '',
-      role: 'Student',
-      phone: '',
-      status: 'Active',
-      profilePic: null,
+      role: 'ROLE_STUDENT',
     });
-    setPreviewUrl('');
-    setError('');
-    setSuccess('');
   };
 
   return (
     <div className="dashboard-content">
+      <ToastContainer />
       <h2 className="page-title">Create User Account</h2>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
 
       <form className="form-section" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>User ID</label>
-          <input type="text" name="userId" className="form-input" value={form.userId} onChange={handleChange} required />
+          <label>First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            className="form-input"
+            value={form.firstName}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="form-group">
-          <label>Full Name</label>
-          <input type="text" name="fullName" className="form-input" value={form.fullName} onChange={handleChange} required />
+          <label>Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            className="form-input"
+            value={form.lastName}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="form-group">
           <label>Email Address</label>
-          <input type="email" name="email" className="form-input" value={form.email} onChange={handleChange} required />
-        </div>
-
-        <div className="form-group">
-          <label>Phone Number</label>
-          <input type="tel" name="phone" className="form-input" value={form.phone} onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            className="form-input"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
         </div>
 
         <div className="form-group">
           <label>Role</label>
-          <select name="role" className="form-input" value={form.role} onChange={handleChange}>
-            <option value="Admin">Admin</option>
-            <option value="Student">Student</option>
-            <option value="Staff">Staff</option>
+          <select
+            name="role"
+            className="form-input"
+            value={form.role}
+            onChange={handleChange}
+          >
+            <option value="ROLE_ADMIN">Admin</option>
+            <option value="ROLE_STUDENT">Student</option>
+            <option value="ROLE_LECTURER">Lecturer</option>
           </select>
-        </div>
-
-        <div className="form-group">
-          <label>Account Status</label>
-          <select name="status" className="form-input" value={form.status} onChange={handleChange}>
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" name="password" className="form-input" value={form.password} onChange={handleChange} required />
-        </div>
-
-        <div className="form-group">
-          <label>Confirm Password</label>
-          <input type="password" name="confirmPassword" className="form-input" value={form.confirmPassword} onChange={handleChange} required />
-        </div>
-
-        <div className="form-group">
-          <label>Profile Picture (optional)</label>
-          <input type="file" accept="image/*" onChange={handleFileChange} />
-          <div className="profile-preview">
-            <img
-              src={previewUrl || defaultProfilePicture}
-              alt="Preview"
-            />
-          </div>
         </div>
 
         <div className="form-group">
           <button type="submit" className="create-account-btn">Create Account</button>
-          <button type="button" onClick={handleReset} className="create-account-btn" style={{ backgroundColor: '#6b7280', marginLeft: '10px' }}>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="create-account-btn"
+            style={{ backgroundColor: '#6b7280', marginLeft: '10px' }}
+          >
             Reset
           </button>
         </div>

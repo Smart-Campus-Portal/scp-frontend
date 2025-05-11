@@ -35,11 +35,13 @@ const ReportIssue = () => {
     };
 
     try {
+      const token = localStorage.getItem('token');
+
       const response = await fetch('http://localhost:8267/api/maintenance/report-issue', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJCb2lrYW55b0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TVFVERU5UIn1dLCJpYXQiOjE3NDYzMzUwNDAsImV4cCI6MTc0NjQyMTQ0MH0.0a7-pSP6bPl6Xu4jUbbgz30KMW3GfT64haPAf72JeBc'
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(newIssue)
       });

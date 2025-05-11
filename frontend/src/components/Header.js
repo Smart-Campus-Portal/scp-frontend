@@ -7,18 +7,23 @@ import { FiLogOut } from 'react-icons/fi';
 const Header = () => {
   const navigate = useNavigate();
 
+  // Get full name from localStorage (set during login)
+  const userName = localStorage.getItem('userName') || 'Student';
+
   const handleLogout = () => {
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('token');
     navigate('/');
   };
 
   return (
     <header className="dashboard-header">
       <div className="header-content">
-        {/* Left: Hello */}
+        {/* Left: Hello {userName} */}
         <div className="left-section">
-          <span className="greeting-text">Hello, Prince</span>
+          <span className="greeting-text">Hello, {userName}</span>
         </div>
 
         {/* Center: Title */}

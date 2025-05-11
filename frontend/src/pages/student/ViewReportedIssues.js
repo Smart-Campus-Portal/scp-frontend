@@ -5,15 +5,14 @@ function ViewReportedIssues() {
   const [issues, setIssues] = useState([]);
   const [statusFilter, setStatusFilter] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-
+ const token = localStorage.getItem('token');
   useEffect(() => {
     const fetchIssues = async () => {
       try {
         const response = await fetch('http://localhost:8267/api/maintenance/issues?reporterId=2', {
           method: 'GET',
           headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJCb2lrYW55b0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9TVFVERU5UIn1dLCJpYXQiOjE3NDYzMzUwNDAsImV4cCI6MTc0NjQyMTQ0MH0.0a7-pSP6bPl6Xu4jUbbgz30KMW3GfT64haPAf72JeBc'
-          }
+ 'Authorization': `Bearer ${token}`          }
         });
 
         if (!response.ok) throw new Error('Failed to fetch issues');
