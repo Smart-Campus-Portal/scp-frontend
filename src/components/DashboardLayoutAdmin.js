@@ -17,6 +17,7 @@ import '../styles/admin/DashboardLayoutAdmin.css'; // Adjust if your path differ
 
 const navItems = [
   { path: '', label: 'Dashboard', icon: <FaTachometerAlt /> },
+  { path: '', label: 'Dashboard', icon: <FaTachometerAlt /> },
   { path: 'generate-report', label: 'Generate System Report', icon: <FaFileAlt /> },
   { path: 'report-issue', label: 'Report an Issue', icon: <FaBug /> },
   { path: 'view-users', label: 'View User Accounts', icon: <FaUsers /> },

@@ -77,10 +77,10 @@ const App = () => {
           <Route
             path="/lecturerDashboard"
             element={
-              <ProtectedRoute role="lecture">
+              <ProtectedRoute role="lecturer">
                 <LecturerDashboard />
               </ProtectedRoute>
-            }
+            }s
           >
             <Route path="appt_bookings" element={<AppointmentBookings />} />
             <Route path="view_reported_issues" element={<ViewReportedIssuesLecturer />} />
