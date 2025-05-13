@@ -1,0 +1,149 @@
+.analytics-container {
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.analytics-container h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+.dashboard-flex {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 2rem;
+  flex: 2;
+}
+
+/* Chart Card Styling */
+.chart-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Chart title section */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #34495e;
+}
+
+/* Chart + legend side-by-side */
+.chart-with-legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Legend styling */
+.legend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-left: 1rem;
+  min-width: 140px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legend-label {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+/* Bar chart layout adjustment */
+.chart-wrapper {
+  width: 100%;
+  height: 300px;
+}
+
+/* Open Issues Section */
+.open-issues-section {
+  flex: 1;
+  max-width: 400px;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  height: fit-content;
+}
+
+.open-issues-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #e67e22;
+  text-align: center;
+}
+
+.open-issues-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.issue-item {
+  background-color: #f9f9f9;
+  border-left: 4px solid #3498db;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.issue-item div {
+  margin-bottom: 4px;
+}
+
+.priority {
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.priority.low {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.priority.medium {
+  background-color: #f39c12;
+  color: white;
+}
+
+.priority.high {
+  background-color: #e74c3c;
+  color: white;
+}

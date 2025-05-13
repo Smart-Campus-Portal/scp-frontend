@@ -1,0 +1,135 @@
+/* Timetable Container */
+.timetable-container {
+  background-color: #fff;
+  padding: 24px 32px;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  margin: 20px auto;
+  max-width: 1000px;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Title */
+.timetable-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin-bottom: 12px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Description */
+.timetable-description {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 24px;
+  text-align: center;
+  line-height: 1.5;
+  max-width: 700px;
+}
+
+/* Download Buttons */
+.download-buttons {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.download-button {
+  padding: 10px 22px;
+  background-color: #1e40af;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.download-button:hover {
+  background-color: #153174;
+  transform: scale(1.04);
+}
+
+/* Table Scroll Wrapper */
+.timetable-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-top: 16px;
+  background-color: #f9f9f9;
+}
+
+/* Table */
+.timetable-full-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.timetable-full-table th,
+.timetable-full-table td {
+  padding: 12px 18px;
+  text-align: center;
+  border: 1px solid #ccc;
+  /* Stronger borders */
+  color: #333;
+}
+
+.timetable-full-table thead th {
+  background-color: #1c73ca;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* Special Styling for Course Info Row */
+.timetable-full-table thead tr:first-child th {
+  background-color: #f1f5f9;
+  color: #1e293b;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-bottom: 2px solid #1c73ca;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .timetable-container {
+    padding: 16px 20px;
+  }
+
+  .timetable-title {
+    font-size: 1.6rem;
+  }
+
+  .timetable-description {
+    font-size: 1rem;
+  }
+
+  .download-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .download-button {
+    width: 100%;
+  }
+
+  .timetable-full-table th,
+  .timetable-full-table td {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+}

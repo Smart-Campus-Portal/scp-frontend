@@ -1,0 +1,38 @@
+.sidebar {
+    width: 350px;
+    background-color: white;
+    color: white;
+    padding: 2rem;
+    padding-top: 20rem;
+    
+    .page-btns{
+        display: block;
+        font-size: 20px;
+        text-decoration: none;
+        background-color: white;
+        color: black;
+        text-align: start;
+        outline: none;
+        padding-top: 20px;
+        padding-left: 5px;
+        margin-bottom: 40px;
+        margin-left: -20px;
+        width: 320px;
+        height: 65px;
+        border: 1px #ffffff;
+        border-radius: 10px;
+        cursor: pointer;
+
+
+        .dash-icon{
+            font-size: 20px;
+        }
+    }
+
+    .page-btns:hover, .page-btns.active{
+        background-color: #B2CAFF;
+        color: rgb(3, 3, 121);
+        opacity: 0.6;
+    }
+
+}

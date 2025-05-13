@@ -1,0 +1,105 @@
+.reported-issues-container {
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 3rem auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.reported-issues-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #136aa5;
+}
+
+.issues-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.issue-item {
+    padding: 1.5rem;
+    border-radius: 12px;
+    background-color: #f9fbfc;
+    border-left: 6px solid #3498db;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.issue-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.issue-item h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
+    color: #2c3e50;
+}
+
+.issue-item p {
+    margin: 0.4rem 0;
+    color: #444;
+    font-size: 1rem;
+}
+
+.issue-status {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* Status colors */
+.status-open {
+    background-color: #ffe5e5;
+    color: #e74c3c;
+}
+
+.status-in-progress {
+    background-color: #fff3cd;
+    color: #f39c12;
+}
+
+.status-resolved {
+    background-color: #d4edda;
+    color: #27ae60;
+}
+.filters {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.filters label {
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: #333;
+}
+
+.filters select,
+.filters input[type="text"] {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    transition: border 0.3s;
+}
+
+.filters select:focus,
+.filters input[type="text"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
