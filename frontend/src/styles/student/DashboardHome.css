@@ -1,0 +1,124 @@
+.dashboard-home {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .welcome-message {
+    text-align: center;
+  }
+  
+  .dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  
+  .stat-card {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .stat-card h4 {
+    font-size: 18px;
+    color: #1e40af;
+    margin-bottom: 6px;
+  }
+  
+  .stat-card p {
+    color: #4b5563;
+  }
+  
+  .stat-card svg {
+    font-size: 30px;
+    color: #1e40af;
+  }
+  
+  .dashboard-lists {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  
+  .list-section {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .list-section h4 {
+    font-size: 16px;
+    color: #1e40af;
+    margin-bottom: 12px;
+  }
+  
+  .booking-entry {
+    background-color: #f3f4f6;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .dashboard-lists ul {
+    list-style: none;
+    padding: 0;
+  }
+  .dashboard-stats .stat-card {
+    cursor: pointer; /* Changes the cursor to a pointer to indicate it's clickable */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .dashboard-stats .stat-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
+  }
+  
+  .dashboard-stats .stat-card a {
+    text-decoration: none; /* Remove text decoration */
+    color: inherit; /* Inherit the text color from the parent */
+  }
+  
+  .dashboard-lists li {
+    margin-bottom: 8px;
+    color: #374151;
+  }
+  
+  .dashboard-lists button {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background-color: #1e40af;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  /* Button Hover Effect */
+  .dashboard-lists button:hover {
+    background-color: #2563eb;
+    transition: 0.3s;
+  }
+    .dashboard-link-button {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 12px;
+      background-color: #1e40af;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+  
+    .dashboard-link-button:hover {
+      background-color: #2563eb;
+    }
