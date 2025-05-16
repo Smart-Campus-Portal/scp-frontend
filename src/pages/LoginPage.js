@@ -23,7 +23,13 @@ const LoginPage = () => {
     localStorage.removeItem('userRole');
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('userName');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName')
+
+    
     localStorage.removeItem('userId');
+    
   }, []);
 
   const handleChange = (e) => {
@@ -33,6 +39,8 @@ const LoginPage = () => {
   const handlePopupChange = (e) => {
     setPopupData({ ...popupData, [e.target.name]: e.target.value });
   };
+
+  
 
   const isPasswordStrong = (password) => {
     const passwordLength = password.length >= 8;
@@ -48,7 +56,7 @@ const LoginPage = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8267/api/auth/sign-in', {
+      const response = await fetch('http://localhost:8080/api/auth/sign-in', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -85,6 +93,10 @@ const LoginPage = () => {
       localStorage.setItem('userRole', role);
       localStorage.setItem('loggedIn', 'true');
       localStorage.setItem('userName', fullName);
+      localStorage.setItem('userEmail',user.email);
+      localStorage.setItem('firstName',user.firstName)
+      localStorage.setItem('lastName',user.lastName)
+
       localStorage.setItem('userId', user.id);
 
       navigate(`/${role}Dashboard`);
@@ -109,7 +121,7 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8267/api/auth/complete-registration', {
+      const response = await fetch('http://localhost:8080/api/auth/complete-registration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -123,7 +135,7 @@ const LoginPage = () => {
       setPopupSuccess('✅ Password created successfully! Redirecting to login...');
       setTimeout(() => {
         setShowPopup(false);
-        navigate('/login');
+        navigate('/');
       }, 2000);
 
       setPopupData({ email: '', password: '', confirmPassword: '' });

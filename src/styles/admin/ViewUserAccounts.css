@@ -64,3 +64,105 @@ table tr:nth-child(even) {
 table tr:hover {
   background-color: #f1f1f1;
 }
+
+.view-user-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f8f9fc;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.search-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-input {
+  padding: 12px;
+  width: 70%;
+  max-width: 400px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #007bff;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.user-table tr:hover {
+  background-color: #f1f5ff;
+}
+
+.loading,
+.message {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 20px;
+  color: #555;
+}
+/* Delete button styling */
+.btn-delete {
+  background-color: #dc3545;
+  /* Bootstrap danger red */
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.btn-delete:hover {
+  background-color: #b02a37;
+}
+
+.btn-delete:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.7);
+}

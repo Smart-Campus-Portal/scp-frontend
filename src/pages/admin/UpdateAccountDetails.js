@@ -1,210 +1,170 @@
 import React, { useState, useEffect } from 'react';
- import { useUserContext } from '../../Context/UserContext';
- // Assuming this path is correct
+import '../../styles/student/StudentProfile.css';
+import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
-const UpdateAccountDetails = () => {
-  const { users, createUser, deleteUser } = useUserContext();
-  
-  // Track the currently selected user
-  const [selectedUser, setSelectedUser] = useState(null);
+function StudentProfile() {
+  const [studentData, setStudentData] = useState({
+    firstName: localStorage.getItem('firstName') || '',
+    lastName: localStorage.getItem('lastName') || '',
+    email: localStorage.getItem('userEmail') || '',
+  });
 
-  // Track form data
-  const [title, setTitle] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [race, setRace] = useState('');
-  const [dob, setDob] = useState('');
-  const [nationality, setNationality] = useState('');
-  const [disability, setDisability] = useState('');
-  const [message, setMessage] = useState('');
+  const [passwords, setPasswords] = useState({
+    oldPassword: '',
+    newPassword: '',
+  });
 
-  // Set the form data when a user is selected
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
-    if (selectedUser) {
-      setTitle(selectedUser.title || '');
-      setName(selectedUser.fullName || '');
-      setEmail(selectedUser.email || '');
-      setPhone(selectedUser.phone || '');
-      setAddress(selectedUser.address || '');
-      setRace(selectedUser.race || '');
-      setDob(selectedUser.dob || '');
-      setNationality(selectedUser.nationality || '');
-      setDisability(selectedUser.disability || '');
-    }
-  }, [selectedUser]);
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/user/profile', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+        const { firstName, lastName, email } = response.data;
+        setStudentData({ firstName, lastName, email });
 
-    // Update user information
-    const updatedUser = {
-      ...selectedUser,
-      title,
-      fullName: name,
-      email,
-      phone,
-      address,
-      race,
-      dob,
-      nationality,
-      disability,
+        localStorage.setItem('firstName', firstName);
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('lastName',lastName)
+      } catch (error) {
+        console.error(error);
+      
+       
+      }
     };
 
-    // Update the user in the context (e.g., replace the user with updated info)
-    createUser(updatedUser); // Assuming createUser can be used for updating
+    fetchProfile();
+  }, [token]);
 
-    setMessage('Account details updated successfully!');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setStudentData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle selecting a user to update
-  const handleUserSelection = (userId) => {
-    const user = users.find((u) => u.id === userId);
-    setSelectedUser(user);
+  const handlePasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPasswords((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/api/user/update',
+        {
+          ...studentData,
+          oldPassword: passwords.oldPassword,
+          newPassword: passwords.newPassword,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success('✅ Profile updated successfully!', {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+
+        localStorage.setItem('firstName', studentData.firstName);
+        localStorage.setItem('userEmail', studentData.email);
+
+        setPasswords({
+          oldPassword: '',
+          newPassword: '',
+        });
+      } else {
+        toast.error('❌ Failed to update profile.', {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error('❌ Failed to update profile.', {
+        position: 'top-center',
+        autoClose: 3000,
+      });
+    }
   };
 
   return (
-    <div className="update-account-container">
-      <h2>Update Account Details</h2>
-      <p>Modify your account information below. Make sure to provide the most up-to-date details.</p>
+    <div className="student-profile">
+      
 
-      {/* Dropdown to select a user */}
-      <div className="select-user-container">
-        <label>Select User to Update:</label>
-        <select onChange={(e) => handleUserSelection(Number(e.target.value))} required>
-          <option value="">Select User</option>
-          {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.fullName} ({user.email})
-            </option>
-          ))}
-        </select>
-      </div>
+      <h2 className="student-title">👤 Student Profile</h2>
 
-      {selectedUser && (
-        <form onSubmit={handleSubmit} className="update-form">
-          <div className="form-group">
-            <label htmlFor="title">Title:</label>
-            <select
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            >
-              <option value="">Select Title</option>
-              <option value="Mr">Mr</option>
-              <option value="Mrs">Mrs</option>
-              <option value="Miss">Miss</option>
-              <option value="Dr">Dr</option>
-            </select>
-          </div>
+      <form className="profile-card" onSubmit={handleSubmit}>
+        <div className="profile-item">
+          <FaUser className="profile-icon" />
+          <input
+            type="text"
+            name="firstName"
+            value={studentData.firstName}
+            onChange={handleChange}
+            placeholder="First Name"
+          />
+        </div>
+        <div className="profile-item">
+          <FaUser className="profile-icon" />
+          <input
+            type="text"
+            name="lastName"
+            value={studentData.lastName}
+            onChange={handleChange}
+            placeholder="Last Name"
+          />
+        </div>
+     
+        <div className="profile-item">
+          <FaEnvelope className="profile-icon" />
+          <input
+            type="email"
+            name="email"
+            value={studentData.email}
+            onChange={handleChange}
+            placeholder="Email"
+          />
+        </div>
+        <div className="profile-item">
+          <FaLock className="profile-icon" />
+          <input
+            type="password"
+            name="oldPassword"
+            value={passwords.oldPassword}
+            onChange={handlePasswordChange}
+            placeholder="Old Password"
+          />
+        </div>
+        <div className="profile-item">
+          <FaLock className="profile-icon" />
+          <input
+            type="password"
+            name="newPassword"
+            value={passwords.newPassword}
+            onChange={handlePasswordChange}
+            placeholder="New Password"
+          />
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="name">Full Name:</label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Enter your full name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Email Address:</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phone">Phone Number:</label>
-            <input
-              type="tel"
-              id="phone"
-              placeholder="Enter your phone number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="address">Address:</label>
-            <textarea
-              id="address"
-              placeholder="Enter your address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-            ></textarea>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="race">Race:</label>
-            <input
-              type="text"
-              id="race"
-              placeholder="Enter your race"
-              value={race}
-              onChange={(e) => setRace(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="dob">Date of Birth:</label>
-            <input
-              type="date"
-              id="dob"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="nationality">Nationality:</label>
-            <input
-              type="text"
-              id="nationality"
-              placeholder="Enter your nationality"
-              value={nationality}
-              onChange={(e) => setNationality(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="disability">Disability Status:</label>
-            <select
-              id="disability"
-              value={disability}
-              onChange={(e) => setDisability(e.target.value)}
-              required
-            >
-              <option value="">Select Disability Status</option>
-              <option value="None">None</option>
-              <option value="Physical">Physical</option>
-              <option value="Mental">Mental</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <button type="submit" className="submit-button">Update Details</button>
-
-          {message && <p className="success-message">{message}</p>}
-        </form>
-      )}
+        <button type="submit" className="save-button">Save Changes</button>
+      </form>
+      <ToastContainer />
     </div>
   );
-};
+}
 
-export default UpdateAccountDetails;
+export default StudentProfile;

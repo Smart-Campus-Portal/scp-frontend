@@ -1,53 +1,119 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/student/StudentProfile.css';
-import { FaUser, FaEnvelope, FaPhoneAlt, FaLock } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { studentProfileData } from '../../dummyData/studentProfileData'; // ✅ correct import
+import axios from 'axios';
 
 function StudentProfile() {
-  const [studentData, setStudentData] = useState(studentProfileData); // ✅ using dummy data
+  const [studentData, setStudentData] = useState({
+    firstName: localStorage.getItem('firstName') || '',
+    lastName: localStorage.getItem('lastName') || '',
+    email: localStorage.getItem('userEmail') || '',
+  });
+
   const [passwords, setPasswords] = useState({
     oldPassword: '',
     newPassword: '',
   });
 
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/user/profile', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const { firstName, lastName, email } = response.data;
+        setStudentData({ firstName, lastName, email });
+
+        localStorage.setItem('firstName', firstName);
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('lastName',lastName)
+      } catch (error) {
+        console.error(error);
+      
+       
+      }
+    };
+
+    fetchProfile();
+  }, [token]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setStudentData({ ...studentData, [name]: value });
+    setStudentData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
-    setPasswords({ ...passwords, [name]: value });
+    setPasswords((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    console.log('📩 Profile updated:', { ...studentData, ...passwords });
 
-    toast.success(`✅ Profile updated successfully!`, {
-      position: 'top-center',
-      autoClose: 3000,
-    });
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/api/user/update',
+        {
+          ...studentData,
+          oldPassword: passwords.oldPassword,
+          newPassword: passwords.newPassword,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    setPasswords({
-      oldPassword: '',
-      newPassword: '',
-    });
+      if (response.status === 200) {
+        toast.success('✅ Profile updated successfully!', {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+
+        localStorage.setItem('firstName', studentData.firstName);
+        localStorage.setItem('userEmail', studentData.email);
+
+        setPasswords({
+          oldPassword: '',
+          newPassword: '',
+        });
+      } else {
+        toast.error('❌ Failed to update profile.', {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error('❌ Failed to update profile.', {
+        position: 'top-center',
+        autoClose: 3000,
+      });
+    }
   };
 
   return (
     <div className="student-profile">
+      
+
       <h2 className="student-title">👤 Student Profile</h2>
+
       <form className="profile-card" onSubmit={handleSubmit}>
         <div className="profile-item">
           <FaUser className="profile-icon" />
           <input
             type="text"
-            name="name"
-            value={studentData.name}
+            name="firstName"
+            value={studentData.firstName}
             onChange={handleChange}
             placeholder="First Name"
           />
@@ -56,12 +122,13 @@ function StudentProfile() {
           <FaUser className="profile-icon" />
           <input
             type="text"
-            name="lastname"
-            value={studentData.lastname}
+            name="lastName"
+            value={studentData.lastName}
             onChange={handleChange}
             placeholder="Last Name"
           />
         </div>
+     
         <div className="profile-item">
           <FaEnvelope className="profile-icon" />
           <input
@@ -72,17 +139,6 @@ function StudentProfile() {
             placeholder="Email"
           />
         </div>
-        <div className="profile-item">
-          <FaPhoneAlt className="profile-icon" />
-          <input
-            type="text"
-            name="phoneNumber"
-            value={studentData.phoneNumber}
-            onChange={handleChange}
-            placeholder="Phone Number"
-          />
-        </div>
-
         <div className="profile-item">
           <FaLock className="profile-icon" />
           <input
@@ -106,8 +162,6 @@ function StudentProfile() {
 
         <button type="submit" className="save-button">Save Changes</button>
       </form>
-
-      {/* Toast Container to display the toast */}
       <ToastContainer />
     </div>
   );

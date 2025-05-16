@@ -45,7 +45,7 @@ const ViewAvailableRooms = () => {
         return;
       }
 
-      const response = await axios.get('http://localhost:8267/api/student/available-study-rooms', {
+      const response = await axios.get('http://localhost:8080/api/student/available-study-rooms', {
         params: { startTime: start, endTime: end },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -102,7 +102,7 @@ const ViewAvailableRooms = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:8267/api/student/book-study-room',
+        'http://localhost:8080/api/student/book-study-room',
         bookingRequest,
         {
           headers: {

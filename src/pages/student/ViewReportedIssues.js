@@ -5,17 +5,27 @@ function ViewReportedIssues() {
   const [issues, setIssues] = useState([]);
   const [statusFilter, setStatusFilter] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const token = localStorage.getItem('token');
-  const reporterId = localStorage.getItem('userId'); // ✅ This is now used properly
 
   useEffect(() => {
     const fetchIssues = async () => {
       try {
-        const response = await fetch(`http://localhost:8267/api/maintenance/issues?reporterId=${reporterId}`, {
+        // Get token and userId from localStorage
+        const token = localStorage.getItem('token');
+        const userId = localStorage.getItem('userId'); // dynamically get reporterId
+        if (!token) {
+          console.error('No auth token found in localStorage');
+          return;
+        }
+        if (!userId) {
+          console.error('No userId found in localStorage');
+          return;
+        }
+
+        const response = await fetch(`http://localhost:8080/api/maintenance/issues?reporterId=${userId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
-          },
+          }
         });
 
         if (!response.ok) throw new Error('Failed to fetch issues');
@@ -27,17 +37,15 @@ function ViewReportedIssues() {
       }
     };
 
-    if (reporterId && token) {
-      fetchIssues();
-    }
-  }, [token, reporterId]);
+    fetchIssues();
+  }, []);
 
   const filteredIssues = issues.filter((issue) => {
-    const matchStatus = statusFilter ? issue?.status === statusFilter.toUpperCase() : true;
+    const matchStatus = statusFilter ? issue.status === statusFilter.toUpperCase() : true;
     const matchSearch = searchQuery
-      ? Object.values(issue || {})
-          .map((v) => (v ? String(v).toLowerCase() : ''))
+      ? Object.values(issue)
           .join(' ')
+          .toLowerCase()
           .includes(searchQuery.toLowerCase())
       : true;
     return matchStatus && matchSearch;
@@ -45,7 +53,7 @@ function ViewReportedIssues() {
 
   const formatDateTime = (datetimeStr) => {
     const date = new Date(datetimeStr);
-    return isNaN(date.getTime()) ? 'Invalid date' : date.toLocaleString('en-US', {
+    return date.toLocaleString('en-US', {
       dateStyle: 'medium',
       timeStyle: 'short',
     });
@@ -79,32 +87,20 @@ function ViewReportedIssues() {
 
       <ul className="issues-list">
         {filteredIssues.length > 0 ? (
-          filteredIssues.map((issue) => {
-            const status = issue?.status || 'UNKNOWN';
-            const safeStatusClass = status.toLowerCase().replace(/\s/g, '-');
-            const statusEmoji = status === 'REPORTED'
-              ? '🟥'
-              : status === 'IN_PROGRESS'
-              ? '🟨'
-              : status === 'RESOLVED'
-              ? '🟩'
-              : '⚪';
-
-            return (
-              <li key={issue.id} className="issue-item">
-                <h3>{issue?.category || 'Uncategorized'}</h3>
-                <p><strong>Priority:</strong> {issue?.priority || 'N/A'}</p>
-                <p><strong>Reported on:</strong> {formatDateTime(issue?.createdAt)}</p>
-                <p>{issue?.description || 'No description provided.'}</p>
-                <span className={`issue-status status-${safeStatusClass}`}>
-                  {statusEmoji} {status}
-                </span>
-              </li>
-            );
-          })
+          filteredIssues.map((issue) => (
+            <li key={issue.id} className="issue-item">
+              <h3>{issue.category}</h3>
+              <p><strong>Priority:</strong> {issue.priority}</p>
+              <p><strong>Reported on:</strong> {formatDateTime(issue.createdAt)}</p>
+              <p>{issue.description}</p>
+              <span className={`issue-status status-${issue.status.toLowerCase().replace(/\s/g, '-')}`}>
+                {issue.status === 'REPORTED' ? '🟥' : issue.status === 'IN_PROGRESS' ? '🟨' : '🟩'} {issue.status}
+              </span>
+            </li>
+          ))
         ) : (
           <p style={{ marginTop: '2rem', textAlign: 'center', color: '#999' }}>
-            No issues match the selected filters. Your Reporter ID is {reporterId}.
+            No issues match the selected filters.
           </p>
         )}
       </ul>

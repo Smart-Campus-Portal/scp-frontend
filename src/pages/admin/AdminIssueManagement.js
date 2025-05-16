@@ -14,7 +14,7 @@ const AdminIssueManagement = () => {
   // Fetch issues from the API
   const fetchIssues = async () => {
     try {
-      const response = await axios.get('http://localhost:8267/api/maintenance/issues/all', {
+      const response = await axios.get('http://localhost:8080/api/maintenance/issues/all', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -51,7 +51,7 @@ const AdminIssueManagement = () => {
   const handleStatusChange = async (issueId, newStatus) => {
     try {
       const response = await axios.post(
-        `http://localhost:8267/api/maintenance/issues/${issueId}/update`,
+        `http://localhost:8080/api/maintenance/issues/${issueId}/update`,
         { status: newStatus },
         {
           headers: {

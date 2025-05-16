@@ -2,13 +2,12 @@ import React from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import {
   FaTachometerAlt,
-  FaFileAlt,
-  FaBug,
+  
   FaUsers,
   FaUserEdit,
   FaUserTimes,
   FaUserPlus,
-  FaSignOutAlt
+ 
 } from 'react-icons/fa';
 
 import Header from './Header';
@@ -18,14 +17,14 @@ import '../styles/admin/DashboardLayoutAdmin.css'; // Adjust if your path differ
 const navItems = [
   { path: '', label: 'Dashboard', icon: <FaTachometerAlt /> },
   { path: '', label: 'Dashboard', icon: <FaTachometerAlt /> },
-  { path: 'generate-report', label: 'Generate System Report', icon: <FaFileAlt /> },
-  { path: 'report-issue', label: 'Report an Issue', icon: <FaBug /> },
+ 
+ 
   { path: 'view-users', label: 'View User Accounts', icon: <FaUsers /> },
   { path: 'update-account', label: 'Update Account Details', icon: <FaUserEdit /> },
-  { path: 'delete-user', label: 'Delete User Accounts', icon: <FaUserTimes /> },
+
   { path: 'create-user', label: 'Create User Accounts', icon: <FaUserPlus /> },
-  { path: 'update-status', label: 'Admin Issue Management', icon:<FaUserTimes/>},
-  { path: 'logout', label: 'Logout', icon: <FaSignOutAlt /> },
+  { path: 'update-status', label: 'Issue Management', icon:<FaUserTimes/>},
+
 ];
 
 const DashboardLayoutAdmin = () => {

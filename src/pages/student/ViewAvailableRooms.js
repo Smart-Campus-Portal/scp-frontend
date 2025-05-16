@@ -11,23 +11,16 @@ const ViewAvailableRooms = () => {
   const [endTime, setEndTime] = useState('');
 
   const token = localStorage.getItem('token');
+  const studentId = localStorage.getItem('userId'); // Assumes userId is stored after login
 
-  // Function to format datetime-local input to 'YYYY-MM-DDTHH:mm:ss'
+  // Format datetime-local string to 'YYYY-MM-DDTHH:mm:ss'
   const formatDateTimeLocal = (datetimeStr) => {
     if (!datetimeStr) return '';
-    const date = new Date(datetimeStr);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+    return datetimeStr.length === 16 ? `${datetimeStr}:00` : datetimeStr;
   };
 
   const fetchRooms = async (customStartTime = '', customEndTime = '') => {
     setLoading(true);
-
     try {
       let start, end;
 
@@ -35,46 +28,31 @@ const ViewAvailableRooms = () => {
         start = formatDateTimeLocal(customStartTime);
         end = formatDateTimeLocal(customEndTime);
       } else {
-        const now = new Date();
+        const now = new Date().toISOString().slice(0, 19);
         const threeMonthsLater = new Date();
-        threeMonthsLater.setMonth(now.getMonth() + 3);
+        threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 3);
+        const future = threeMonthsLater.toISOString().slice(0, 19);
 
-        start = formatDateTimeLocal(now.toISOString());
-        end = formatDateTimeLocal(threeMonthsLater.toISOString());
+        start = now;
+        end = future;
       }
 
       if (!token) {
-        toast.error('Authentication token missing.', {
-          position: 'top-center',
-          autoClose: 3000,
-        });
+        toast.error('Authentication token missing.');
         setLoading(false);
         return;
       }
 
-      const response = await axios.get('http://localhost:8267/api/student/available-study-rooms', {
+      const response = await axios.get('http://localhost:8080/api/student/available-study-rooms', {
         params: { startTime: start, endTime: end },
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
+        headers: { 'Authorization': `Bearer ${token}` }
       });
 
       setRooms(response.data.data || []);
     } catch (err) {
       console.error(err);
-      if (err.response && err.response.status === 403) {
-        toast.error('Access denied. Please check your role or login status.', {
-          position: 'top-center',
-          autoClose: 3000,
-        });
-      } else {
-        toast.error('Failed to fetch rooms. Please try again.', {
-          position: 'top-center',
-          autoClose: 3000,
-        });
-      }
+      toast.error('Failed to fetch rooms. Please try again.');
     }
-
     setLoading(false);
   };
 
@@ -84,10 +62,7 @@ const ViewAvailableRooms = () => {
 
   const handleSearch = () => {
     if (!startTime || !endTime) {
-      toast.error('Please select both start and end time to filter.', {
-        position: 'top-center',
-        autoClose: 3000,
-      });
+      toast.error('Please select both start and end time to filter.');
       return;
     }
     fetchRooms(startTime, endTime);
@@ -95,15 +70,17 @@ const ViewAvailableRooms = () => {
 
   const handleBookRoom = async (roomId) => {
     if (!startTime || !endTime) {
-      toast.error('Please select both start and end time before booking.', {
-        position: 'top-center',
-        autoClose: 3000,
-      });
+      toast.error('Please select both start and end time before booking.');
+      return;
+    }
+
+    if (!studentId) {
+      toast.error('Student ID not found. Please login again.');
       return;
     }
 
     const bookingRequest = {
-      studentId: 4, // Manually set studentId
+      studentId: Number(studentId),
       roomId: roomId,
       startTime: formatDateTimeLocal(startTime),
       endTime: formatDateTimeLocal(endTime),
@@ -111,7 +88,7 @@ const ViewAvailableRooms = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:8267/api/student/book-study-room',
+        'http://localhost:8080/api/student/book-study-room',
         bookingRequest,
         {
           headers: {
@@ -122,29 +99,13 @@ const ViewAvailableRooms = () => {
       );
 
       if (response.status === 200 || response.status === 201) {
-        toast.success(`✅ Study room booked successfully from ${startTime} to ${endTime}`, {
-          position: 'top-center',
-          autoClose: 3000,
-        });
+        toast.success(`✅ Study room booked successfully from ${bookingRequest.startTime} to ${bookingRequest.endTime}`);
       } else {
-        toast.error('Failed to book the room. Please try again.', {
-          position: 'top-center',
-          autoClose: 3000,
-        });
+        toast.error('Failed to book the room. Please try again.');
       }
     } catch (err) {
       console.error(err);
-      if (err.response && err.response.status === 403) {
-        toast.error('Access denied. Please check your role or login status.', {
-          position: 'top-center',
-          autoClose: 3000,
-        });
-      } else {
-        toast.error('Failed to book the room. Please try again.', {
-          position: 'top-center',
-          autoClose: 3000,
-        });
-      }
+      toast.error('Failed to book the room. Please try again.');
     }
   };
 
@@ -182,7 +143,7 @@ const ViewAvailableRooms = () => {
               <h4 className="room-name">{room.name}</h4>
               <p className="room-description">{room.description}</p>
               <p className="room-location"><strong>📍 Location:</strong> {room.location}</p>
-              <p className="room-capacity"><strong>👥 Capacity:</strong> {room.capacity} students</p>
+              <p className="room-capacity"><strong>👥 Capacity:</strong> {room.capacity}</p>
               <button onClick={() => handleBookRoom(room.id)} className="book-room-button">
                 📘 Book this Study Room
               </button>

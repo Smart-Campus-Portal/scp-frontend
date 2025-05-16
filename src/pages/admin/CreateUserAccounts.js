@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../../styles/admin/CreateUserAccounts.css'; // Fixed path to CSS file
+import '../../styles/admin/CreateUserAccounts.css'; // Ensure this path is correct
 
 const CreateUserAccounts = () => {
   const [form, setForm] = useState({
@@ -42,7 +42,7 @@ const CreateUserAccounts = () => {
       const token = localStorage.getItem('token');
 
       const response = await axios.post(
-        'http://localhost:8267/api/admin/add-user',
+        'http://localhost:8080/api/admin/add-user',
         userToCreate,
         {
           headers: {
@@ -57,15 +57,24 @@ const CreateUserAccounts = () => {
           position: 'top-center',
           autoClose: 3000,
         });
-      } else {
-        toast.error('❌ Failed to create user account. Please try again.', {
-          position: 'top-center',
-          autoClose: 3000,
+
+        // Reset form on success
+        setForm({
+          firstName: '',
+          lastName: '',
+          email: '',
+          role: 'ROLE_STUDENT',
         });
       }
     } catch (err) {
       console.error(err);
-      if (err.response?.status === 403) {
+
+      if (err.response?.status === 409) {
+        toast.error('❌ A user with this email already exists.', {
+          position: 'top-center',
+          autoClose: 3000,
+        });
+      } else if (err.response?.status === 403) {
         toast.error('❌ Access denied. Please check your login status.', {
           position: 'top-center',
           autoClose: 3000,
@@ -77,28 +86,12 @@ const CreateUserAccounts = () => {
         });
       }
     }
-
-    setForm({
-      firstName: '',
-      lastName: '',
-      email: '',
-      role: 'ROLE_STUDENT',
-    });
-  };
-
-  const handleReset = () => {
-    setForm({
-      firstName: '',
-      lastName: '',
-      email: '',
-      role: 'ROLE_STUDENT',
-    });
   };
 
   return (
-    <div className="dashboard-content">
+    <div className="create-user-container">
       <ToastContainer />
-      <h2 className="page-title">Create User Account</h2>
+      <h2 className="page-title">Adding Users</h2>
 
       <form className="form-section" onSubmit={handleSubmit}>
         <div className="form-group">
@@ -110,6 +103,7 @@ const CreateUserAccounts = () => {
             value={form.firstName}
             onChange={handleChange}
             required
+            placeholder="Enter first name"
           />
         </div>
 
@@ -122,6 +116,7 @@ const CreateUserAccounts = () => {
             value={form.lastName}
             onChange={handleChange}
             required
+            placeholder="Enter last name"
           />
         </div>
 
@@ -134,6 +129,7 @@ const CreateUserAccounts = () => {
             value={form.email}
             onChange={handleChange}
             required
+            placeholder="example@domain.com"
           />
         </div>
 
@@ -153,14 +149,6 @@ const CreateUserAccounts = () => {
 
         <div className="form-group">
           <button type="submit" className="create-account-btn">Create Account</button>
-          <button
-            type="button"
-            onClick={handleReset}
-            className="create-account-btn"
-            style={{ backgroundColor: '#6b7280', marginLeft: '10px' }}
-          >
-            Reset
-          </button>
         </div>
       </form>
     </div>
