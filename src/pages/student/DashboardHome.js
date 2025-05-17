@@ -1,38 +1,76 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/student/DashboardHome.css';
-import { FaBookOpen, FaCalendarAlt, FaTools, FaClock, FaFilePdf, FaFileExcel } from 'react-icons/fa';
+import {
+  FaBookOpen,
+  FaCalendarAlt,
+  FaTools,
+  FaClock,
+  FaFilePdf,
+  FaFileExcel
+} from 'react-icons/fa';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
 
 const DashboardHome = () => {
   const [todaySchedule, setTodaySchedule] = useState([]);
+  const [pendingCount, setPendingCount] = useState(0);
+  const [bookingCount, setBookingCount] = useState(0);
 
   useEffect(() => {
     const fullWeekSchedule = [
-      { time: '08:00 - 09:00', monday: 'CFA115D', tuesday: 'WEB115D', wednesday: 'PPA115D', thursday: 'COH115D', friday: 'DTD316D' },
-      { time: '09:00 - 10:00', monday: 'PPA115D', tuesday: 'CFA115D', wednesday: 'WEB115D', thursday: 'DTD316D', friday: 'COH115D' },
-      { time: '10:00 - 11:00', monday: '', tuesday: 'PPA115D', wednesday: 'CFA115D', thursday: '', friday: 'WEB115D' },
-      { time: '11:00 - 12:00', monday: 'WEB115D', tuesday: '', wednesday: '', thursday: 'CFA115D', friday: 'PPA115D' },
-      { time: '12:00 - 13:00', monday: '', tuesday: '', wednesday: '', thursday: '', friday: '' },
+      { time: '08:00 - 09:00', monday: 'CFA115D', tuesday: 'WEB115D', wednesday: 'PPA115D', thursday: 'COH115D', friday: 'DTD316D', saturday: 'MAT115D' },
+      { time: '09:00 - 10:00', monday: 'PPA115D', tuesday: 'CFA115D', wednesday: 'WEB115D', thursday: 'DTD316D', friday: 'COH115D', saturday: 'PHY115D' },
+      { time: '10:00 - 11:00', monday: '', tuesday: 'PPA115D', wednesday: 'CFA115D', thursday: '', friday: 'WEB115D', saturday: '' },
+      { time: '11:00 - 12:00', monday: 'WEB115D', tuesday: '', wednesday: '', thursday: 'CFA115D', friday: 'PPA115D', saturday: '' },
+      { time: '12:00 - 13:00', monday: '', tuesday: '', wednesday: '', thursday: '', friday: '', saturday: '' },
     ];
 
-    const todayIndex = new Date().getDay(); 
-    const weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+    const todayIndex = new Date().getDay(); // 0 = Sunday, 6 = Saturday
+    const weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
-    if (todayIndex === 0 || todayIndex === 6) {
-      setTodaySchedule([]);
-    } else {
+    if (todayIndex > 0 && todayIndex < 7) { // Monday to Saturday
       const today = weekdays[todayIndex];
-      const filtered = fullWeekSchedule.map(entry => ({
-        time: entry.time,
-        subject: entry[today],
-      })).filter(item => item.subject);
+      const filtered = fullWeekSchedule
+        .map(entry => ({ time: entry.time, subject: entry[today] }))
+        .filter(item => item.subject);
       setTodaySchedule(filtered);
+    } else {
+      setTodaySchedule([]);
     }
   }, []);
 
-  // 📥 PDF Export
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    fetch(`http://localhost:8080/api/maintenance/issues/count/not-resolved`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => setPendingCount(data.count ?? 0))
+      .catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    if (!token || !userId) return;
+
+    fetch(`http://localhost:8080/api/student/bookings/count?studentId=${userId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => setBookingCount(data.bookingCount ?? 0))
+      .catch(console.error);
+  }, []);
+
   const handleDownloadPDF = () => {
     const tableWrapper = document.querySelector('.timetable-today-table');
     html2canvas(tableWrapper, { scale: 2 }).then(canvas => {
@@ -45,13 +83,9 @@ const DashboardHome = () => {
     });
   };
 
-  // 📥 Excel Export
   const handleDownloadExcel = () => {
     const worksheetData = [['Time', 'Subject']];
-    todaySchedule.forEach(item => {
-      worksheetData.push([item.time, item.subject]);
-    });
-
+    todaySchedule.forEach(item => worksheetData.push([item.time, item.subject]));
     const worksheet = XLSX.utils.aoa_to_sheet(worksheetData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Today');
@@ -61,17 +95,16 @@ const DashboardHome = () => {
   return (
     <div className="dashboard-home">
       <div className="welcome-message">
-        <h2>Welcome back, John Student!</h2>
+        <h2>Welcome back, {localStorage.getItem('userName') || 'Student'}!</h2>
         <p>Here's your overview for today.</p>
       </div>
 
-      {/* Stats */}
       <div className="dashboard-stats">
         <div className="stat-card">
           <FaBookOpen />
           <div>
             <h4>Room Bookings</h4>
-            <p>3 Upcoming</p>
+            <p>{bookingCount} BOOKED</p>
           </div>
         </div>
         <div className="stat-card">
@@ -85,12 +118,11 @@ const DashboardHome = () => {
           <FaTools />
           <div>
             <h4>Maintenance</h4>
-            <p>1 Pending</p>
+            <p>{pendingCount} Pending</p>
           </div>
         </div>
       </div>
 
-      {/* Today's Timetable */}
       <div className="timetable-today-section">
         <div className="timetable-header">
           <h3><FaClock /> Today's Timetable</h3>

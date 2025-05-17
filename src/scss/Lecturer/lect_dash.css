@@ -1,327 +1,353 @@
-.dash-layout{
+.dash-layout {
     display: flex;
     flex-direction: column;
     height: 100vh;
 
-    .dash-side{
+    .dash-side {
         display: flex;
         flex: 3;
         overflow: hidden;
     }
 
-    .content{
+    .content {
         flex: 1;
         padding: 1rem;
         overflow-y: auto;
-        background-color: #F0F0F0;
+        background-color: #f0f0f0;
 
-        .greeting-cont{
-            /* background-color: pink; */
-            height: 5rem;
-            width: 80rem;
+        .greeting-cont {
             margin-top: 5rem;
+            max-width: 100%;
+            width: 100%;
+            padding: 1rem;
 
-            .ns-greeting{
-                font-size: 50px;
+            .ns-greeting {
+                font-size: 2.5rem;
                 color: #1e3a8a;
             }
 
-            .p-greeting{
-                font-size: 30px;
+            .p-greeting {
+                font-size: 1.5rem;
             }
         }
 
-
-        .nav-link{
+        .nav-link {
             text-decoration: none !important;
         }
 
-        .lect-updates{
+        .lect-updates {
             display: flex;
-            flex-direction: row;
-            text-decoration: none;
-            background-color: #F0F0F0;
+            flex-wrap: wrap;
             gap: 1rem;
-            height: 56rem;
-            width: 100rem;
-            padding: 10px;
             margin-top: 4rem;
-            overflow-y: auto;
+            width: 100%;
+            padding: 10px;
 
-            .appt-booking-updates{
+            .appt-booking-updates {
                 background-color: white;
                 padding: 1rem;
                 border: 1px solid #ddd;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
                 border-radius: 20px;
-                                
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                flex: 1 1 60%;
 
-                .dash-header{
-                    font-size: 20px;
+                .dash-header {
+                    font-size: 1.25rem;
                 }
 
                 .appointments-list {
-
-                        .appointment-card {
-                            display: flex;
-                            border: 1px solid #ddd;
-                            border-radius: 10px;
-                            height: 10rem;
-                            overflow: hidden;
-                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                            margin: 20px;
-                        }
-
-                        .appointment-date{
-                            display: flex;
-                            width: 10rem;
-                            font-size: 20px;
-                            font-weight: bolder;
-                            padding: 10px;
-                            text-align: center;
-                            justify-content: center;
-                            align-items: center;
-
-                            .date-block{
-                                background-color:rgba(178, 202, 255, 0.5);
-                                border: 1px solid rgba(178, 202, 255, 0.5);
-                                border-radius: 20px;
-                                color: rgb(3, 3, 121);
-                                padding-top: 40px;
-                                height: 8rem;
-                                width: 8rem;
-                                text-align: center;
-                                justify-content: center;
-                                align-items: center;
-                            }
-
-                        }
-                
+                    .appointment-card {
+                        display: flex;
+                        flex-wrap: wrap;
+                        border: 1px solid #ddd;
+                        border-radius: 10px;
+                        overflow: hidden;
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                        margin: 20px 0;
                     }
 
-                        .appointment-details {
-                            .appt-p-db{
-                                font-size: 20px;
-                                margin: 15px;
-                            }
-                            .status.pending {
-                                font-size: 20px;
+                    .appointment-date {
+                        width: 8rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 10px;
+
+                        .date-block {
+                            background-color: rgba(178, 202, 255, 0.5);
+                            border: 1px solid rgba(178, 202, 255, 0.5);
+                            border-radius: 20px;
+                            color: rgb(3, 3, 121);
+                            padding: 1rem;
+                            height: 6rem;
+                            width: 6rem;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            text-align: center;
+                            flex-direction: column;
+                        }
+                    }
+
+                    .appointment-details {
+                        flex: 1;
+
+                        .appt-p-db {
+                            font-size: 1rem;
+                            margin: 15px;
+                        }
+
+                        .status {
+                            font-size: 1rem;
+                            border-radius: 20px;
+                            padding: 10px;
+                            text-align: center;
+                            width: fit-content;
+
+                            &.pending {
                                 color: orange;
-                                border: 2px solid rgba(255, 165, 0, 0.1);
-                                border-radius: 20px;
                                 background-color: rgba(255, 165, 0, 0.1);
-                                padding: 10px;
-                                text-align: center;
                             }
 
-                            .status.accepted {
-                                font-size: 20px;
-                                border: 1px solid rgba(0, 128, 0, 0.1);
-                                background-color: rgba(0, 128, 0, 0.1);
-                                border-radius: 20px;
-                                padding: 10px;
+                            &.accepted {
                                 color: green;
-
+                                background-color: rgba(0, 128, 0, 0.1);
                             }
 
-                            .status.declined {
-                                font-size: 20px;
-                                border: 1px solid rgba(255, 0, 0, 0.1);
-                                background-color: rgba(255, 0, 0, 0.1);
-                                border-radius: 20px;
-                                padding: 10px;
+                            &.declined {
                                 color: red;
+                                background-color: rgba(255, 0, 0, 0.1);
                             }
                         }
+                    }
 
-                        .view-all-link{
-                            font-size: 15px;
-                            
-                            .view-all-btn{
-                                border: 1px solid #1e3a8a;
-                                border-radius: 10px;
-                                background-color: #1e3a8a;
-                                padding: 7px;
-                                text-decoration: none !important;
-                                color: white;
-                            }
+                    .view-all-link {
+                        font-size: 0.9rem;
+
+                        .view-all-btn {
+                            border: 1px solid #1e3a8a;
+                            border-radius: 10px;
+                            background-color: #1e3a8a;
+                            padding: 7px;
+                            text-decoration: none !important;
+                            color: white;
                         }
+                    }
+                }
             }
         }
-
     }
 }
-
 
 .issues-section {
     background-color: white;
     padding: 2rem;
     border: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-left: 2rem;
-    width: 40rem;
+    flex: 1 1 35%;
     overflow-y: auto;
 
     .section-header {
-        font-size: 25px;
+        font-size: 1.5rem;
     }
 
     .issue-card {
         display: flex;
+        flex-wrap: wrap;
         border: 1px solid #ddd;
         border-radius: 10px;
-        height: 10rem;
-        overflow: hidden;
+        margin: 20px 0;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        margin: 20px;
 
         .issue-icon {
-                display: flex;
-                width: 10rem;
-                font-size: 50px;
-                font-weight: bolder;
-                padding: 10px;
-                text-align: center;
-                justify-content: center;
-                align-items: center;
-        
-                .icon-block {
-                    background-color: rgba(255, 0, 0, 0.1);
-                    border: 1px solid rgba(255, 0, 0, 0.1);
-                    border-radius: 20px;
-                    color: red;
-                    padding-top: 40px;
-                    height: 8rem;
-                    width: 8rem;
-                    text-align: center;
-                    justify-content: center;
-                    align-items: center;
-                }
-            }
-        .issue-details{
+            width: 8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            .issue-desc{
-                font-size: 20px;
+            .icon-block {
+                background-color: rgba(255, 0, 0, 0.1);
+                border: 1px solid rgba(255, 0, 0, 0.1);
+                border-radius: 20px;
+                color: red;
+                height: 6rem;
+                width: 6rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        .issue-details {
+            flex: 1;
+
+            .issue-desc {
+                font-size: 1rem;
                 margin: 15px;
             }
 
-            .issue-stats{
+            .issue-stats {
                 display: flex;
-                flex-direction: row;
+                flex-wrap: wrap;
 
-                .priority-label{
-                    font-size: 20px;
-                    border: 1px solid black;
-                    text-align: center;
-                    width: 6rem;
+                .priority-label,
+                .status-label {
+                    font-size: 1rem;
                     padding: 10px;
                     margin: 10px;
-
-                    &.high{
-                        border: 1px solid rgba(255, 0, 0, 0.1);
-                        border-radius: 20px;
-                        background-color: rgba(255, 0, 0, 0.1);
-                        color: red;
-                    }
-
-                    &.medium{
-                        border: 1px solid rgba(255, 165, 0, 0.1);
-                        border-radius: 20px;
-                        background-color: rgba(255, 165, 0, 0.1);
-                        color: orange;
-                    }
-
-                    &.low{
-                        border: 1px solid rgba(173, 216, 230, 0.5);
-                        border-radius: 20px;
-                        background-color: rgba(173, 216, 230, 0.5);
-                        color: blue;
-                    }
+                    border-radius: 20px;
+                    width: fit-content;
+                    text-align: center;
                 }
 
-                .status-label{
-                    font-size: 20px;
-                    border: 1px solid black;
-                    text-align: center;
-                    width: 7rem;
-                    padding: 10px;
-                    margin: 10px;
+                .priority-label.high {
+                    color: red;
+                    background-color: rgba(255, 0, 0, 0.1);
+                }
 
-                    &.resolved{
-                        border: 1px solid rgba(0, 128, 0, 0.1);
-                        border-radius: 20px;
-                        background-color: rgba(0, 128, 0, 0.1);
-                        color: green;
-                    }
+                .priority-label.medium {
+                    color: orange;
+                    background-color: rgba(255, 165, 0, 0.1);
+                }
 
-                    &.pending{
-                        border: 1px solid rgba(255, 165, 0, 0.1);
-                        border-radius: 20px;
-                        background-color: rgba(255, 165, 0, 0.1);
-                        color: orange;
-                    }
+                .priority-label.low {
+                    color: blue;
+                    background-color: rgba(173, 216, 230, 0.5);
+                }
+
+                .status-label.resolved {
+                    color: green;
+                    background-color: rgba(0, 128, 0, 0.1);
+                }
+
+                .status-label.pending {
+                    color: orange;
+                    background-color: rgba(255, 165, 0, 0.1);
                 }
             }
         }
-        
     }
 
-        .issues-view-all-link {
-            font-size: 15px;
-    
-            .issues-view-all-btn {
-                border: 1px solid #1e3a8a;
-                border-radius: 10px;
-                background-color: #1e3a8a;
-                padding: 7px;
-                text-decoration: none !important;
-                color: white;
-            }
+    .issues-view-all-link {
+        font-size: 0.9rem;
+
+        .issues-view-all-btn {
+            border: 1px solid #1e3a8a;
+            border-radius: 10px;
+            background-color: #1e3a8a;
+            padding: 7px;
+            color: white;
+            text-decoration: none !important;
         }
+    }
 }
 
-.lect-notifications-ovv{
+.lect-notifications-ovv {
     background-color: white;
     padding: 2rem;
     border: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     margin-left: 2rem;
     overflow-y: auto;
-    
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
     .lect-notification-head {
-        font-size: 20px;
+        font-size: 1.25rem;
     }
 
-    .notifications-list{
-        
-        .lect-notification-box{
+    .notifications-list {
+        .lect-notification-box {
             display: flex;
+            flex-wrap: wrap;
             border: 1px solid #ddd;
             border-radius: 10px;
-            height: 10rem;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin: 20px;
+            margin: 20px 0;
             padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
-            .lect-message{
+            .lect-message {
+                flex: 1;
 
-                .lect-notif-title{
+                .lect-notif-title {
                     margin-bottom: 10px;
                 }
 
-                .lect-notif-msg{
-                    font-size: 20;
+                .lect-notif-msg {
+                    font-size: 1rem;
                 }
-
             }
 
-            .lect-notification-time{
-                width: 8rem;
+            .lect-notification-time {
+                width: 100%;
+                font-size: 0.9rem;
+                margin-top: 10px;
             }
         }
+    }
+}
 
+/* Media Queries */
+
+@media (max-width: 768px) {
+    .content {
+        padding: 1rem;
+    }
+
+    .greeting-cont {
+        margin-top: 2rem;
+    }
+
+    .ns-greeting {
+        font-size: 2rem;
+    }
+
+    .p-greeting {
+        font-size: 1.2rem;
+    }
+
+    .lect-updates {
+        flex-direction: column;
+    }
+
+    .issues-section,
+    .lect-notifications-ovv {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .appointment-card,
+    .issue-card,
+    .lect-notification-box {
+        flex-direction: column;
+    }
+
+    .appointment-date,
+    .issue-icon,
+    .lect-notification-time {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .greeting-cont {
+        margin-top: 1rem;
+    }
+
+    .ns-greeting {
+        font-size: 1.5rem;
+    }
+
+    .p-greeting {
+        font-size: 1rem;
+    }
+
+    .dash-layout,
+    .content,
+    .issues-section,
+    .lect-notifications-ovv {
+        padding: 1rem;
     }
 }

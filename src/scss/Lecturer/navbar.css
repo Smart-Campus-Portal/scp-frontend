@@ -5,7 +5,7 @@
     font-family: "Poppins", sans-serif;
 }
 
-.header{
+.header {
     position: fixed;
     top: 0;
     left: 0;
@@ -17,36 +17,38 @@
     align-items: center;
     z-index: 100;
     color: white;
+    flex-wrap: wrap;
 }
 
-.logo{
+.logo {
     text-decoration: none;
-    font-size: 40px;
+    font-size: 2.5rem;
     font-weight: bold;
     color: white;
 }
 
-.lect-nav-links{
+.lect-nav-links {
     text-decoration: none;
     position: relative;
-    font-size: 25px;
+    font-size: 1.5rem;
     color: white;
     font-weight: 500;
-    margin-left: 40px;
+    margin-left: 2rem;
+    white-space: nowrap;
 }
 
 .lect-notification-wrapper {
     position: relative;
     display: inline-block;
-
+    margin-left: 2rem;
 }
 
-.lect-bell-icon{
+.lect-bell-icon {
     position: relative;
     cursor: pointer;
     padding: 0.5rem;
     width: 20px;
-    height: 20px;  
+    height: 20px;
 }
 
 .lect-badge {
@@ -86,4 +88,59 @@
 
 .notification-item.read {
     background-color: #fff;
+}
+
+/* Tablets (portrait and landscape) */
+@media (max-width: 1024px) {
+    .header {
+        padding: 20px 5%;
+    }
+
+    .logo {
+        font-size: 2rem;
+    }
+
+    .lect-nav-links {
+        font-size: 1.2rem;
+        margin-left: 1.5rem;
+    }
+}
+
+/* Mobile devices */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 5%;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .lect-nav-links {
+        font-size: 1rem;
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .lect-notification-wrapper {
+        align-self: flex-end;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .header {
+        padding: 10px 4%;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .lect-nav-links {
+        font-size: 0.9rem;
+    }
 }

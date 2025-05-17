@@ -14,7 +14,7 @@ const [showModal, setShowModal] = useState(false);
   };
 
   const confirmLogout = () => {
-    navigate('/login'); 
+    navigate('/'); 
   };
 
 

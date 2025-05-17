@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/admin/ViewUserAccounts.css'; // Custom CSS
 
 const ViewUserAccount = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
 
   const fetchUsers = async (query = '') => {
     setLoading(true);
-    setMessage('');
     try {
       const token = localStorage.getItem('token');
       const endpoint = query.trim()
@@ -20,8 +20,8 @@ const ViewUserAccount = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (!response.ok) {
@@ -31,12 +31,13 @@ const ViewUserAccount = () => {
       const data = await response.json();
       const userList = data.content.flat(); // Flatten nested array
       setUsers(userList);
+
       if (userList.length === 0) {
-        setMessage('No users found.');
+        toast.info('No users found.');
       }
     } catch (error) {
       console.error('Error:', error);
-      setMessage('Error fetching users. Please try again.');
+      toast.error('Error fetching users. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -47,14 +48,13 @@ const ViewUserAccount = () => {
     if (!window.confirm(`Are you sure you want to delete user ID ${id}?`)) return;
 
     setLoading(true);
-    setMessage('');
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`http://localhost:8080/api/user/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (!response.ok) {
@@ -62,12 +62,12 @@ const ViewUserAccount = () => {
         throw new Error(errorMsg || 'Failed to delete user');
       }
 
-      setMessage(`User ID ${id} deleted successfully.`);
+      toast.success(`User ID ${id} deleted successfully.`);
       // Refresh users list after deletion
       fetchUsers(searchTerm.trim());
     } catch (error) {
       console.error('Delete error:', error);
-      setMessage(`Error deleting user ID ${id}: ${error.message}`);
+      toast.error(`Error deleting user ID ${id}: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -89,7 +89,6 @@ const ViewUserAccount = () => {
   return (
     <div className="view-user-container">
       <h2 className="title">User Accounts</h2>
-      
 
       <div className="search-container">
         <input
@@ -101,47 +100,46 @@ const ViewUserAccount = () => {
         />
       </div>
 
-      {loading ? (
-        <p className="loading">Loading...</p>
-      ) : message ? (
-        <p className="message">{message}</p>
-      ) : (
-        users.length > 0 && (
-          <div className="table-container">
-            <table className="user-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                  <th>Actions</th> {/* New column for actions */}
+      {loading && <p className="loading">Loading...</p>}
+
+      {!loading && users.length > 0 && (
+        <div className="table-container">
+          <table className="user-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th> {/* New column for actions */}
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.firstName}</td>
+                  <td>{user.lastName}</td>
+                  <td>{user.email}</td>
+                  <td>{user.role.replace('ROLE_', '')}</td>
+                  <td>
+                    <button
+                      className="btn-delete"
+                      onClick={() => deleteUser(user.id)}
+                      disabled={loading}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.firstName}</td>
-                    <td>{user.lastName}</td>
-                    <td>{user.email}</td>
-                    <td>{user.role.replace('ROLE_', '')}</td>
-                    <td>
-                      <button
-                        className="btn-delete"
-                        onClick={() => deleteUser(user.id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

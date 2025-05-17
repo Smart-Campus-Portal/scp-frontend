@@ -1,91 +1,244 @@
-.tt-page-layout{
+.tt-page-layout {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    box-sizing: border-box;
+}
 
-    .tt-page-side{
-        display: flex;
-        flex: 3;
-        overflow: hidden;
+.tt-page-side {
+    display: flex;
+    flex: 3;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.tt-page-content {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: hidden;
+    background-color: #F0F0F0;
+    box-sizing: border-box;
+}
+
+.lect_timetable {
+    margin: 6rem auto 2rem auto;
+    height: 85vh;
+    max-height: 85vh;
+    width: 90vw;
+    max-width: 80rem;
+    background-color: #ffffff;
+    padding: 2rem;
+    overflow-y: auto;
+    border-radius: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tt-headings {
+    color: #1e3a8a;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 700;
+}
+
+.lect_timetable td {
+    text-align: center;
+    padding: 1rem;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    word-wrap: break-word;
+}
+
+.lect_timetable th {
+    height: 40px;
+    background-color: #1E90FF;
+    color: white;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+}
+
+.edit-btn {
+    width: 80px;
+    height: 40px;
+    font-size: clamp(0.85rem, 1.5vw, 1.25rem);
+    margin-top: 0.5rem;
+    background-color: #1E90FF;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: #1c86ee;
+}
+
+.edit-form-div {
+    width: 95%;
+    max-width: 95rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    margin-top: 2.5rem;
+    gap: 1.5rem;
+    box-sizing: border-box;
+}
+
+.class-input {
+    flex: 1 1 25rem;
+    min-width: 15rem;
+    height: 40px;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.save-btn {
+    flex: 0 0 15rem;
+    height: 40px;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    border: none;
+    border-radius: 10px;
+    background-color: #1E90FF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+    background-color: #1c86ee;
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
+    .lect_timetable {
+        width: 95vw;
+        height: 75vh;
+        padding: 1.5rem;
+        margin: 4rem auto 1rem auto;
     }
 
-    .tt-page-content {
-        flex: 1;
+    .tt-headings {
+        font-size: clamp(1.5rem, 5vw, 3rem);
+    }
+
+    .edit-btn {
+        width: 70px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .save-btn {
+        flex: 1 1 100%;
+        height: 40px;
+        margin-left: 0;
+    }
+
+    .edit-form-div {
+        flex-direction: column;
         padding: 1rem;
-        overflow-y: auto;
-        background-color: #F0F0F0;
+        gap: 1rem;
     }
 }
 
-.lect_timetable{
-    margin-top: 100px;
-    height: 85vh;
-    width: 80vw;
-    background-color: #ffffff;
-    padding: 30px;
-    overflow-y: auto;
-    border: 1px #ffffff;
-    border-radius: 20px;
-    overflow-y: auto;
-
-    .tt-headings{
-        color: #000000;
-        color: #1e3a8a;
-        margin-bottom: 10px;
-        text-align: center;
-        font-size: 70px;
+/* Small screens (phones) */
+@media (max-width: 480px) {
+    .lect_timetable {
+        width: 98vw;
+        height: 65vh;
+        margin: 3rem auto 1rem auto;
+        padding: 1rem;
     }
 
-    td{
-        text-align: center;
-        padding: 20px;
-        font-size: 20px;
+    .tt-headings {
+        font-size: 1.75rem;
     }
 
-    th {
-        height: 40px;
-        background-color: #1E90FF;
-        color: white;
-        font-size: 20px;
+    .lect_timetable td,
+    .lect_timetable th {
+        font-size: 1rem;
+        padding: 0.5rem;
     }
 
-    .edit-btn{
-        width: 80px;
-        height: 40px;
-        font-size: 20px;
-        margin-top: 8px;
-        background-color: #1E90FF;
-        border: 1px;
-        border-color: #1E90FF;
-        cursor: pointer;
+    .edit-btn {
+        width: 60px;
+        height: 36px;
+        font-size: 0.9rem;
     }
 
+    .class-input {
+        flex: 1 1 100%;
+        width: 100%;
+    }
 
-    .edit-form-div{
-        width: 95rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 30px;
-        margin-top: 40px;
+    .save-btn {
+        flex: 1 1 100%;
+        width: 100%;
+        margin-left: 0;
+    }
 
-        .class-input {
-            height: 40px;
-            width: 25rem;
-            margin-top: 15px;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
+    .edit-form-div {
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+}
 
-        .save-btn{
-            height: 40px;
-            width: 15rem;
-            font-size: 20px;
-            margin-left: 70px;
-            border: 1px;
-            border-radius: 10px;
-            background-color: #1E90FF;
-            
-        }
+/* Large screens (desktops and up) */
+@media (min-width: 1200px) {
+    .lect_timetable {
+        width: 80vw;
+        max-width: 85rem;
+        height: 80vh;
+        padding: 3rem;
+        margin-top: 6rem;
+    }
+
+    .tt-headings {
+        font-size: 3.5rem;
+    }
+
+    .edit-btn {
+        width: 90px;
+        height: 44px;
+        font-size: 1.3rem;
+    }
+
+    .save-btn {
+        width: 16rem;
+        height: 44px;
+        font-size: 1.3rem;
+    }
+}
+
+/* Extra large screens (4K and large desktops) */
+@media (min-width: 1600px) {
+    .lect_timetable {
+        width: 75vw;
+        max-width: 100rem;
+        height: 85vh;
+        padding: 4rem;
+        margin-top: 7rem;
+    }
+
+    .tt-headings {
+        font-size: 4.5rem;
+    }
+
+    .edit-btn {
+        width: 100px;
+        height: 48px;
+        font-size: 1.5rem;
+    }
+
+    .save-btn {
+        width: 18rem;
+        height: 48px;
+        font-size: 1.5rem;
     }
 }

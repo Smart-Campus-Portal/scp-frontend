@@ -2,77 +2,196 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    box-sizing: border-box;
+}
 
-    .lect-rep-side {
-        display: flex;
-        flex: 3;
-        overflow: hidden;
+.lect-rep-side {
+    flex: 3;
+    display: flex;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.lect-rep-content {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: hidden;
+    background-color: #F0F0F0;
+    box-sizing: border-box;
+}
+
+.rep-form-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    max-width: 60rem;
+    /* limit max width for readability on large screens */
+    margin: 10rem auto 0 auto;
+    /* centered horizontally, large top margin */
+    padding: 2rem;
+    align-items: center;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.issue-form {
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.rep-form-heading {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: #1e3a8a;
+    margin-bottom: 1.25rem;
+    text-align: center;
+}
+
+.rep-form-desc {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    padding: 20px;
+    text-align: center;
+}
+
+.rep-form-lbl {
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    display: block;
+    margin-bottom: 0.5rem;
+    /* remove fixed margin-left */
+    /* for spacing inside form container */
+}
+
+.rep-form-input {
+    height: 3rem;
+    width: 100%;
+    max-width: 50rem;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
+    box-sizing: border-box;
+}
+
+.rep-sub-btn {
+    width: 100%;
+    max-width: 30rem;
+    height: 3.5rem;
+    margin: 20px auto 0 auto;
+    margin-left: 12rem;
+    background-color: #1e3a8a;
+    border: 1px solid #1e3a8a;
+    border-radius: 20px;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.rep-sub-btn:hover {
+    background-color: #16306a;
+}
+
+/* Large and Extra Large screens */
+@media (min-width: 1200px) {
+    .rep-form-container {
+        max-width: 70rem;
+        margin-top: 8rem;
+        padding: 3rem;
     }
 
-    .lect-rep-content {
-        flex: 1;
+    .rep-form-heading {
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+    }
+
+    .rep-form-desc {
+        font-size: clamp(1.25rem, 2vw, 1.5rem);
+        padding: 30px;
+    }
+
+    .rep-form-input {
+        font-size: 1.5rem;
+    }
+
+    .rep-sub-btn {
+        font-size: 1.75rem;
+        height: 4rem;
+        max-width: 35rem;
+    }
+}
+
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
+    .rep-form-container {
+        max-height: 90vh;
+        max-width: 95vw;
+        margin-top: 5rem;
+        padding: 1.5rem;
+    }
+
+    .rep-form-heading {
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+    }
+
+    .rep-form-desc {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        padding: 10px;
+    }
+
+    .rep-form-lbl {
+        font-size: clamp(1rem, 3vw, 1.25rem);
+    }
+
+    .rep-form-input {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    .rep-sub-btn {
+        font-size: 1.25rem;
+        height: 3rem;
+        max-width: 100%;
+    }
+}
+
+/* Small screens (phones) */
+@media (max-width: 480px) {
+    .rep-form-container {
+        max-height: 100vh;
+        max-width: 100vw;
+        margin-top: 3rem;
         padding: 1rem;
-        overflow-y: auto;
-        background-color: #F0F0F0;
+        border-radius: 12px;
+    }
 
-        .rep-form-container{
-            display: flex;
-            flex-direction: column;
-            height: 50rem;
-            width: 60rem;
-            margin-top: 10rem;
-            margin-left: 20rem;
-            padding: 30px;
-            align-items: center;
-            background-color: white;
-            border: 1px solid white;
-            border-radius: 20px;
+    .rep-form-heading {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
 
-            .issue-form{
-                padding: 20px;
-            }
+    .rep-form-desc {
+        font-size: 1rem;
+        padding: 5px;
+    }
 
-            .rep-form-heading{
-                font-size: 50px;
-                color: #1e3a8a;
-                margin-bottom: 20px;
-                text-align: center;
-            }
+    .rep-form-lbl {
+        font-size: 1rem;
+    }
 
-            .rep-form-desc{
-                font-size: 20px;
-                padding: 20px;
-                text-align: center;
-            }
+    .rep-form-input {
+        font-size: 1rem;
+        height: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
 
-            .rep-form-lbl{
-                font-size: 25px;
-            }
-
-            .rep-form-input{
-                height: 3rem;
-                width: 50rem;
-                border: 1px solid #ddd;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                border-radius: 10px;
-                padding: 10px;
-                font-size: 20px;
-                margin-bottom: 3rem;
-            }
-
-            .rep-sub-btn{
-                width: 30rem;
-                height: 3rem;
-                margin-left: 10rem;
-                margin-top: 20px;
-                background-color: #1e3a8a;
-                border: 1px solid #1e3a8a;
-                border-radius: 20px;
-                color: white;
-                font-size: 25px;
-                
-            }
-        }
-
+    .rep-sub-btn {
+        font-size: 1.25rem;
+        height: 3rem;
+        margin-left: 0;
+        max-width: 100%;
     }
 }

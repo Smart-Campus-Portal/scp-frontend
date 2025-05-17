@@ -27,77 +27,15 @@
   margin-bottom: 20px;
 }
 
-/* List of Announcements */
-.announcement-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* Status Message */
+.announcement-status {
+  color: green;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 500;
 }
 
-/* Card Styling */
-.announcement-card {
-  background-color: #f8fafc;
-  border-left: 4px solid #1e40af;
-  border-radius: 10px;
-  padding: 16px 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
-}
-
-.announcement-card:hover {
-  transform: translateY(-3px);
-}
-
-/* Card Title */
-.announcement-card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1e40af;
-  margin-bottom: 6px;
-}
-
-/* Date Styling */
-.announcement-card-date {
-  font-size: 0.85rem;
-  font-style: italic;
-  color: #6b7280;
-  margin-bottom: 10px;
-}
-
-/* Content Paragraph */
-.announcement-card-content {
-  font-size: 0.95rem;
-  color: #374151;
-  line-height: 1.5;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .announcement-container {
-    padding: 20px 14px;
-  }
-
-  .announcement-title {
-    font-size: 1.5rem;
-  }
-
-  .announcement-description {
-    font-size: 0.9rem;
-  }
-
-  .announcement-card {
-    padding: 14px;
-  }
-
-  .announcement-card-title {
-    font-size: 1.1rem;
-  }
-
-  .announcement-card-content {
-    font-size: 0.9rem;
-  }
-}
-/* Filter Section */
+/* Filters */
 .announcement-filters {
   display: flex;
   justify-content: center;
@@ -120,4 +58,158 @@
 .announcement-filters input:focus {
   border-color: #193a95;
   outline: none;
+}
+
+/* List */
+.announcement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card Styling */
+.announcement-card {
+  background-color: #f8fafc;
+  border-left: 4px solid #1e40af;
+  border-radius: 10px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.announcement-card:hover {
+  transform: translateY(-3px);
+}
+
+.announcement-card.read {
+  opacity: 0.6;
+  border-left-color: #94a3b8;
+}
+
+.announcement-card.unread {
+  opacity: 1;
+  border-left-color: #1e40af;
+}
+
+/* Content Text */
+.announcement-card-content {
+  font-size: 0.95rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+/* Date Styling */
+.announcement-card-date {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #6b7280;
+  margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .announcement-container {
+    padding: 20px 14px;
+  }
+
+  .announcement-title {
+    font-size: 1.5rem;
+  }
+
+  .announcement-description {
+    font-size: 0.9rem;
+  }
+
+  .announcement-card {
+    padding: 14px;
+  }
+
+  .announcement-card-content {
+    font-size: 0.9rem;
+  }
+}
+.book-lecture-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  background-color: #f5f8fc;
+  min-height: 100vh;
+}
+
+.book-lecture-container {
+  width: 100%;
+  max-width: 700px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.book-lecture-title {
+  font-size: 28px;
+  color: #003366;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.view-bookings-link {
+  display: block;
+  text-align: right;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #0055aa;
+  text-decoration: none;
+}
+
+.view-bookings-link:hover {
+  text-decoration: underline;
+  color: #003366;
+}
+
+.book-lecture-form .form-group {
+  margin-bottom: 20px;
+}
+
+.book-lecture-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.book-lecture-form .form-icon {
+  margin-right: 8px;
+  color: #003366;
+}
+
+.book-lecture-form input,
+.book-lecture-form select,
+.book-lecture-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #fafafa;
+}
+
+.book-lecture-form textarea {
+  resize: vertical;
+}
+
+.submit-button {
+  background-color: #003366;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0055aa;
 }

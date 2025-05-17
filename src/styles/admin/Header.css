@@ -1,73 +1,156 @@
-/* Header.css */
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: white;
+.dashboard-header {
+  background-color: #004080;
+  padding: 15px 25px;
   color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
 }
 
-.logosec .logo {
-  font-size: 24px;
-  color: rgb(0, 65, 145);
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.greeting-text {
+  font-size: 16px;
+}
+
+.notification-container {
+  position: relative;
+  margin-right: 15px;
+  color: white;
   text-decoration: none;
 }
 
-.searchbar {
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 20px;
-  padding: 5px 15px;
+.notification-bell {
+  font-size: 20px;
 }
 
-.search-input {
-  border: none;
-  padding: 5px;
-  font-size: 16px;
-  border-radius: 15px;
-  width: 200px;
-  outline: none;
-}
-
-.searchbtn .icn {
-  width: 20px;
-  height: 20px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.message {
-  display: flex;
-  align-items: center;
-}
-
-.message .circle {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+.notification-count {
   background-color: red;
-  position: relative;
-  top: 5px;
-  left: -5px;
-}
-
-.message .icn {
-  width: 25px;
-  height: 25px;
-  margin-right: 15px;
-}
-
-.dp {
-  position: relative;
-}
-
-.dpicn {
-  width: 40px;
-  height: 40px;
+  color: white;
+  font-size: 12px;
   border-radius: 50%;
-  border: 2px solid #fff;
-  background-color: #ccc;
+  padding: 2px 6px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+}
+
+.logout-button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.logout-icon {
+  margin-right: 5px;
+}
+
+/* FIXED MODAL VISIBILITY STYLES */
+.custom-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  /* ensure it's above all other elements */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.custom-modal {
+  background: white;
+  padding: 30px;
+  max-width: 400px;
+  width: 90%;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+.custom-modal h3 {
+  font-size: 22px;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+
+.custom-modal p {
+  font-size: 16px;
+  color: #4b5563;
+  margin-bottom: 20px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.modal-btn.confirm {
+  background-color: #ef4444;
+  color: white;
+}
+
+.modal-btn.confirm:hover {
+  background-color: #dc2626;
+}
+
+.modal-btn.cancel {
+  background-color: #9ca3af;
+  color: white;
+}
+
+.modal-btn.cancel:hover {
+  background-color: #6b7280;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.95);
+  }
+
+  to {
+    transform: scale(1);
+  }
 }

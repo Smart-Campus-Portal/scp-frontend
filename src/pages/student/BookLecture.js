@@ -1,53 +1,95 @@
-import React, { useState } from 'react';
-import { FaEnvelope, FaCalendarAlt, FaClock, FaInfoCircle, FaBookOpen } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  FaEnvelope,
+  FaCalendarAlt,
+  FaClock,
+  FaInfoCircle,
+  FaBookOpen,
+} from 'react-icons/fa';
 import '../../styles/student/BookLecture.css';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Important to import toastify styles
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const BookLecture = () => {
   const [course, setCourse] = useState('');
   const [module, setModule] = useState('');
-  const [lecturerEmail, setLecturerEmail] = useState('');
+  const [lecturerId, setLecturerId] = useState('');
+  const [lecturers, setLecturers] = useState([]);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [details, setDetails] = useState('');
 
+  const token = localStorage.getItem('token');
+  const studentId = localStorage.getItem('userId');
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/api/appointment/get-all-lecturers', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setLecturers(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching lecturers:', error);
+        toast.error('❌ Failed to load lecturers. Please try again.');
+      });
+  }, [token]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const namePart = lecturerEmail.split('@')[0];
-    const formattedName = namePart
-      .split('.')
-      .map((n) => n.charAt(0).toUpperCase() + n.slice(1))
-      .join(' ');
-
-    // Log appointment info
-    console.log('📚 Lecture Appointment Booked:', {
-      course,
-      module,
-      lecturerName: formattedName,
-      lecturerEmail,
-      date,
-      time,
-      details,
-    });
-
-    // Show toast notification
-    toast.success(
-      `✅ Your appointment request has been sent to ${formattedName}!`,
-      {
-        position: 'top-center',
-        autoClose: 3000,
-      }
+    const selectedLecturer = lecturers.find(
+      (l) => l.id === parseInt(lecturerId)
     );
 
-    // Reset form fields
-    setCourse('');
-    setModule('');
-    setLecturerEmail('');
-    setDate('');
-    setTime('');
-    setDetails('');
+    if (!selectedLecturer) {
+      toast.error('Please select a valid lecturer.');
+      return;
+    }
+
+    // Convert time to HH:mm:ss format
+    const formattedTime = time ? `${time}:00` : '';
+
+    const appointmentData = {
+      studentId: parseInt(studentId),
+      lecturerId: parseInt(lecturerId),
+      date,
+      time: formattedTime, // Correct format for java.sql.Time
+      location: 'Building A, Room 205',
+      description: details,
+      courseName: course,
+      moduleName: module,
+    };
+console.log(token)
+console.log(appointmentData)
+    axios
+      .post('http://localhost:8080/api/appointment/book', appointmentData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+
+      })
+      .then(() => {
+        toast.success(
+          `✅ Your appointment request has been sent to ${selectedLecturer.name}!`
+        );
+        // Reset form
+        setCourse('');
+        setModule('');
+        setLecturerId('');
+        setDate('');
+        setTime('');
+        setDetails('');
+      })
+      .catch((error) => {
+        console.error('Error booking appointment:', error);
+        toast.error('❌ Failed to book appointment. Please try again.');
+      });
   };
 
   return (
@@ -55,7 +97,11 @@ const BookLecture = () => {
       <div className="book-lecture-container">
         <h1 className="book-lecture-title">📚 Book Lecture Appointment</h1>
 
-        <form onSubmit={handleSubmit} className="book-lecture-form">
+
+        <form onSubmit={handleSubmit} className="book-lecture-form" noValidate>
+        <Link to="/studentDashboard/bookings" className="view-bookings-button">
+  📅 View My Bookings
+</Link>
           <div className="form-group">
             <label htmlFor="course">
               <FaBookOpen className="form-icon" /> Course Name
@@ -85,17 +131,22 @@ const BookLecture = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="lecturerEmail">
-              <FaEnvelope className="form-icon" /> Lecturer's Email
+            <label htmlFor="lecturerId">
+              <FaEnvelope className="form-icon" /> Select Lecturer
             </label>
-            <input
-              type="email"
-              id="lecturerEmail"
-              value={lecturerEmail}
-              onChange={(e) => setLecturerEmail(e.target.value)}
-              placeholder="Enter lecturer's email"
+            <select
+              id="lecturerId"
+              value={lecturerId}
+              onChange={(e) => setLecturerId(e.target.value)}
               required
-            />
+            >
+              <option value="">-- Select Lecturer --</option>
+              {lecturers.map((lecturer) => (
+                <option key={lecturer.id} value={lecturer.id}>
+                  {lecturer.name} ({lecturer.email})
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="form-group">
@@ -133,7 +184,8 @@ const BookLecture = () => {
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               placeholder="Enter any additional details or requests"
-            ></textarea>
+              rows={5}
+            />
           </div>
 
           <button type="submit" className="submit-button">
@@ -141,7 +193,6 @@ const BookLecture = () => {
           </button>
         </form>
 
-        {/* Toast popup */}
         <ToastContainer />
       </div>
     </div>

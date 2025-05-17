@@ -1,66 +1,139 @@
+/* Container and layout */
 .appts-layout {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-
-    .appts-side {
-        display: flex;
-        flex: 3;
-        overflow: hidden;
-    }
-
-    .appts-content {
-        flex: 1;
-        padding: 1rem;
-        overflow-y: auto;
-        background-color: #F0F0F0;
-
-    }
-
+    min-height: 100vh;
+    background-color: #f9f9f9;
 }
 
-.appts-view{
-    height: 60rem;
-    width: 100rem;
-    background-color: white;
-    border: 1px solid white;
-    border-radius: 20px;
-    overflow-y: auto;
-    margin-top: 7rem;
-    padding-top: 3rem;
-    padding-left: 5rem;
-    padding-right: 5rem;
-    padding-bottom: 5rem;
+.appts-side {
+    flex: 1;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
 
-    .appts-head{
-        text-align: center;
-        font-size: 70px;
-        margin-bottom: 20px;
-        color: #1e3a8a;
-    }
+.appts-content {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
 
-    .appts-label{
-        font-size: 22px;
-        padding-bottom: 7px;
-    }
+.appts-view {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
 
-    .appt-accept-btn{
-        height: 40px;
-        width: 100px;
-        font-size: 22px;
-        background-color: #008000;
-        border: 1px solid #008000;
-        border-radius: 15px;
-        cursor: pointer;
-    }
+.appts-head {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #003366;
+    /* TUT dark blue */
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
 
-    .appt-decline-btn {
-        height: 40px;
-        width: 100px;
-        font-size: 22px;
-        background-color: red;
-        border: 1px solid red;
-        border-radius: 15px;
-        cursor: pointer;
-    }
+/* Appointment card */
+.appts-label {
+    font-size: 1rem;
+    margin: 0.25rem 0;
+    color: #333;
+}
+
+.appts-view>div {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.appts-view>div:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Dropdown select */
+select {
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1.5px solid #ccc;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.25s ease;
+    min-width: 140px;
+}
+
+select:hover {
+    border-color: #0056b3;
+}
+
+select:focus {
+    outline: none;
+    border-color: #003366;
+    box-shadow: 0 0 5px #003366aa;
+}
+
+/* Status text colors handled inline, but fallback */
+.status-accepted {
+    color: green;
+    font-weight: bold;
+}
+
+.status-declined {
+    color: red;
+    font-weight: bold;
+}
+
+.status-pending {
+    color: orange;
+    font-weight: bold;
+}
+
+/* Buttons (if still used) */
+.appt-accept-btn,
+.appt-decline-btn {
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.appt-accept-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.appt-accept-btn:hover {
+    background-color: #218838;
+}
+
+.appt-decline-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.appt-decline-btn:hover {
+    background-color: #c82333;
+}
+
+/* Toastify Overrides (optional) */
+.Toastify__toast {
+    font-size: 1rem;
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+}
+
+.Toastify__toast--success {
+    background: #28a745;
+    color: white;
+}
+
+.Toastify__toast--error {
+    background: #dc3545;
+    color: white;
 }

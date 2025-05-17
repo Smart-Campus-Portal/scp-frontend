@@ -3,93 +3,182 @@
     flex-direction: column;
     background-color: #F0F0F0;
     height: 100vh;
-
-    .reported-side {
-        display: flex;
-        flex: 3;
-        overflow: hidden;
-    }
-
-    .reported-content {
-        flex: 1;
-        padding: 1rem;
-        overflow-y: auto;
-    }
+    box-sizing: border-box;
 }
 
-.reported-issues-cont{
+.reported-side {
+    display: flex;
+    flex: 3;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.reported-content {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.reported-issues-cont {
     display: flex;
     flex-direction: column;
-    height: 50rem;
+    height: 70vh;
+    max-height: 70vh;
+    max-width: 90vw;
     width: 60rem;
-    margin-top: 10rem;
-    margin-left: 20rem;
-    padding: 30px;
+    margin: 5rem auto 0 auto;
+    padding: 2rem;
     background-color: white;
     border: 1px solid white;
     border-radius: 20px;
-    margin-top: 10rem;
     overflow-y: auto;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-    .reported-heading{
-        font-size: 50px;
-        text-align: center;
-        margin-bottom: 10px;
-        color: #1e3a8a;
+.reported-heading {
+    font-size: clamp(2rem, 4vw, 3rem);
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #1e3a8a;
+    font-weight: 700;
+}
+
+.issue-card {
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
+}
+
+.issue-type {
+    font-size: clamp(1.5rem, 3vw, 1.75rem);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.issue-info,
+.issue-date,
+.priority {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    margin-bottom: 0.75rem;
+}
+
+.priority {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 0.3rem 0.7rem;
+    width: fit-content;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.priority.high {
+    border: 1px solid rgba(255, 0, 0, 0.5);
+    background-color: rgba(255, 0, 0, 0.15);
+    color: red;
+}
+
+.priority.medium {
+    border: 1px solid rgba(255, 165, 0, 0.5);
+    background-color: rgba(255, 165, 0, 0.15);
+    color: orange;
+}
+
+.priority.low {
+    border: 1px solid rgba(173, 216, 230, 0.5);
+    background-color: rgba(173, 216, 230, 0.15);
+    color: blue;
+}
+
+/* Medium screens (tablets and smaller desktops) */
+@media (max-width: 1024px) {
+    .reported-issues-cont {
+        width: 90vw;
+        height: 60vh;
+        margin: 3rem auto 0 auto;
+        padding: 1.5rem;
     }
 
-    .issue-card{
-        border: 1px solid #ddd;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        border-radius: 20px;
-        padding: 10px;
-        margin-bottom: 30px;
-
-        .issue-type{
-            font-size:25px;
-            margin-bottom: 15px;
-        }
-
-        .issue-info{
-            font-size: 20px;
-        }
-
-        .issue-date{
-            font-size: 20px;
-        }
-
-        .priority{
-            font-size: 20px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .priority.high{
-            border: 1px solid rgba(255, 0, 0, 0.5);
-            border-radius: 20px;
-            background-color: rgba(255, 0, 0, 0.5);
-            width: 7rem;
-            color: red;
-            padding: 5px;
-        }
-
-        .priority.medium{
-            border: 1px solid rgba(255, 165, 0, 0.5);
-            border-radius: 20px;
-            background-color: rgba(255, 165, 0, 0.5);
-            width: 7rem;
-            color: orange;
-            padding: 5px;
-        }
-
-        .priority.low{
-            border: 1px solid rgba(173, 216, 230, 0.5);
-            border-radius: 20px;
-            background-color: rgba(173, 216, 230, 0.5);
-            width: 7rem;
-            color: blue;
-            padding: 5px;
-        }
+    .issue-card {
+        padding: 0.8rem;
+        margin-bottom: 1.5rem;
     }
 
+    .reported-heading {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+}
+
+/* Small screens (phones) */
+@media (max-width: 480px) {
+    .reported-issues-cont {
+        width: 95vw;
+        height: 60vh;
+        margin: 2rem auto 0 auto;
+        padding: 1rem;
+        border-radius: 15px;
+    }
+
+    .reported-heading {
+        font-size: 1.75rem;
+    }
+
+    .issue-card {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .issue-type {
+        font-size: 1.25rem;
+    }
+
+    .issue-info,
+    .issue-date,
+    .priority {
+        font-size: 1rem;
+    }
+
+    .priority {
+        padding: 0.2rem 0.5rem;
+    }
+}
+
+/* Large screens (desktops and larger) */
+@media (min-width: 1200px) {
+    .reported-issues-cont {
+        width: 70rem;
+        height: 75vh;
+        margin-top: 6rem;
+        padding: 3rem;
+    }
+
+    .reported-heading {
+        font-size: 3.5rem;
+    }
+
+    .issue-type {
+        font-size: 2rem;
+    }
+}
+
+/* Extra large screens (large desktops, 4K monitors) */
+@media (min-width: 1600px) {
+    .reported-issues-cont {
+        width: 80rem;
+        height: 80vh;
+        margin-top: 8rem;
+        padding: 4rem;
+    }
+
+    .reported-heading {
+        font-size: 4rem;
+    }
+
+    .issue-type {
+        font-size: 2.5rem;
+    }
 }

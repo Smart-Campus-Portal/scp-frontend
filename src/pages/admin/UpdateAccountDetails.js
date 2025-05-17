@@ -105,7 +105,7 @@ function StudentProfile() {
     <div className="student-profile">
       
 
-      <h2 className="student-title">👤 Student Profile</h2>
+      <h2 className="student-title">👤 Admin Profile</h2>
 
       <form className="profile-card" onSubmit={handleSubmit}>
         <div className="profile-item">

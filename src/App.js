@@ -19,6 +19,7 @@ import ViewReportedIssues from './pages/student/ViewReportedIssues';
 import ReportIssue from './pages/student/ReportIssue';
 import Announcement from './pages/student/Announcement';
 import ViewAvailableRooms from './pages/student/ViewAvailableRooms';
+import MyBookings from './pages/student/MyBookings';
 
 // Admin
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -66,11 +67,13 @@ const App = () => {
             <Route path="book-lecture" element={<BookLecture />} />
             <Route path="book-study-room" element={<BookStudyRoom />} />
             <Route path="view-rooms" element={<ViewRooms />} />
+            <Route path="bookings" element ={<MyBookings/>}/>
             <Route path="profile" element={<StudentProfile />} />
             <Route path="issues" element={<ViewReportedIssues />} />
             <Route path="available-rooms" element={<ViewAvailableRooms />} />
             <Route path="report-issue" element={<ReportIssue />} />
             <Route path="announcements" element={<Announcement />} />
+            
           </Route>
 
           {/* Lecturer Dashboard */}
