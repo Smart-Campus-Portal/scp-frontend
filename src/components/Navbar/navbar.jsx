@@ -1,52 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../scss/Lecturer/navbar.css';
-import { IoMdNotifications } from "react-icons/io";
-import LogoutComponent from '../Logout/logout';
-import {  useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaBell } from 'react-icons/fa';
+import { FiLogOut } from 'react-icons/fi';
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState([]);
-  const [userName, setUserName] = useState('Lecturer');
+const Header = () => {
   const navigate = useNavigate();
-  const userId = localStorage.getItem('userId');
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  const userName = localStorage.getItem('userName') || 'Student';
   const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
+
+  const fetchUnreadCount = async () => {
+    if (!token || !userId || userId === 'undefined') return;
+
+    try {
+      const res = await fetch(
+        `http://localhost:8080/api/maintenance/notifications?userId=${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!res.ok) throw new Error('Failed to fetch notifications');
+      const data = await res.json();
+      const unread = data.filter((n) => !n.read).length;
+      setUnreadCount(unread);
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+      setUnreadCount(0);
+    }
+  };
 
   useEffect(() => {
-    const storedName = localStorage.getItem('userName');
-    if (storedName) {
-      setUserName(storedName);
-    }
+    fetchUnreadCount();
 
-    const fetchNotifications = async () => {
-      if (!userId || !token) return;
-
-      try {
-        const response = await fetch(
-          `http://localhost:8080/api/maintenance/notifications?userId=${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch notifications');
-        }
-
-        const data = await response.json();
-        setNotifications(data);
-      } catch (error) {
-        console.error('Error fetching notifications:', error);
-        setNotifications([]);
-      }
+    const handleNotificationRead = () => {
+      setUnreadCount((prev) => Math.max(prev - 1, 0));
     };
 
-    fetchNotifications();
-  }, [userId, token]);
+    window.addEventListener('notification-read', handleNotificationRead);
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
+    return () => {
+      window.removeEventListener('notification-read', handleNotificationRead);
+    };
+  }, [token, userId]);
+
   const handleLogout = () => {
     if (window.confirm('Are you sure you want to log out?')) {
       localStorage.clear();
@@ -55,44 +57,38 @@ const Navbar = () => {
   };
 
   return (
-    <header className="header">
-      <nav className="lect-navbar">
-        <span className="lect-nav-links">Hello, {userName}</span>
-      </nav>
-
-      <a href="/" className="logo">🎓 STUDENT CAMPUS PORTAL</a>
-
-      <nav className="lect-navbar">
-        <div className="lect-notification-wrapper">
-          <div className="lect-bell-icon" onClick={() => setIsOpen(!isOpen)}>
-            <IoMdNotifications size={28} />
-            {unreadCount > 0 && (
-              <span className="lect-badge">{unreadCount}</span>
-            )}
-          </div>
-
-          {isOpen && (
-            <div className="lect-notification-dropdown">
-              {notifications.length > 0 ? (
-                notifications.map((note) => (
-                  <div
-                    key={note.id}
-                    className={`lect-notification-item ${note.read ? 'read' : 'unread'}`}
-                  >
-                    {note.message}
-                  </div>
-                ))
-              ) : (
-                <div className="lect-notification-item">No notifications</div>
-              )}
-            </div>
-          )}
+    <header className="dashboard-header">
+      <div className="header-content">
+        <div className="left-section">
+          <span className="greeting-text">
+            👋 Welcome back, <strong>{userName}</strong>!
+          </span>
         </div>
 
-        <LogoutComponent />
-      </nav>
+        <h4 className="header-title">🎓 Student Campus Portal</h4>
+
+        <div className="right-section">
+          <Link
+            to="/studentDashboard/announcements"
+            className="notification-container"
+            title="View Announcements"
+          >
+            <FaBell className="notification-bell" />
+            {unreadCount > 0 && (
+              <span className="notification-count">{unreadCount}</span>
+            )}
+          </Link>
+          <button
+            className="nav-link logout-button"
+            onClick={handleLogout}
+            title="Logout"
+          >
+            <FiLogOut className="logout-icon" /> Logout
+          </button>
+        </div>
+      </div>
     </header>
   );
 };
 
-export default Navbar;
+export default Header;

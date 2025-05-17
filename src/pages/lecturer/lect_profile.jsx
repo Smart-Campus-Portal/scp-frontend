@@ -28,7 +28,6 @@ const [formData, setFormData] = useState(dummyLecturer);
             <Navbar/>
 
             <div className='lect-profile-side'>
-                <Sidebar/>
 
                 <div className='lect-profile-content'>
                     

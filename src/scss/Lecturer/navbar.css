@@ -1,146 +1,117 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
-
-.header {
+.dashboard-header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    padding: 20px 10%;
-    background-color: blue;
+    right: 0;
+    height: 70px;
+    background-color: #1e40af;
+    padding: 0 24px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 100;
-    color: white;
-    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1200px;
 }
 
-.logo {
-    text-decoration: none;
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: white;
+/* Left: Greeting */
+.left-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
 }
 
-.lect-nav-links {
-    text-decoration: none;
-    position: relative;
-    font-size: 1.5rem;
-    color: white;
+.greeting-text {
+    font-size: 1.05rem;
     font-weight: 500;
-    margin-left: 2rem;
-    white-space: nowrap;
 }
 
-.lect-notification-wrapper {
-    position: relative;
-    display: inline-block;
-    margin-left: 2rem;
+/* Center: Title */
+.header-title {
+    flex: 2;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin: 0;
 }
 
-.lect-bell-icon {
+/* Right: Notification + Logout */
+.right-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+}
+
+/* Notification Styles */
+.notification-container {
     position: relative;
     cursor: pointer;
-    padding: 0.5rem;
-    width: 20px;
-    height: 20px;
+    display: flex;
+    align-items: center;
 }
 
-.lect-badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: red;
+.notification-bell {
+    font-size: 1.4rem;
     color: white;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 50%;
 }
 
-.lect-notification-dropdown {
+.notification-count {
     position: absolute;
-    right: 0;
-    top: 40px;
-    background: white;
-    width: 250px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-    overflow: hidden;
-    z-index: 100;
-}
-
-.lect-notification-item {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    font-size: 14px;
-    color: black;
-}
-
-.lect-notification-item.unread {
-    background-color: #f6f8ff;
+    top: -6px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 0.75rem;
     font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+    min-width: 18px;
+    text-align: center;
+    line-height: 1;
 }
 
-.notification-item.read {
-    background-color: #fff;
+/* Logout */
+.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    gap: 0.4rem;
+    padding: 0;
+    text-decoration: none;
 }
 
-/* Tablets (portrait and landscape) */
-@media (max-width: 1024px) {
-    .header {
-        padding: 20px 5%;
-    }
-
-    .logo {
-        font-size: 2rem;
-    }
-
-    .lect-nav-links {
-        font-size: 1.2rem;
-        margin-left: 1.5rem;
-    }
+.logout-button:hover {
+    color: #ff4d4f;
 }
 
-/* Mobile devices */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 15px 5%;
-    }
-
-    .logo {
-        font-size: 1.8rem;
-        margin-bottom: 10px;
-    }
-
-    .lect-nav-links {
-        font-size: 1rem;
-        margin-left: 0;
-        margin-bottom: 10px;
-    }
-
-    .lect-notification-wrapper {
-        align-self: flex-end;
-    }
+.logout-icon {
+    font-size: 1.2rem;
 }
 
-/* Extra small screens */
-@media (max-width: 480px) {
-    .header {
-        padding: 10px 4%;
-    }
+.greeting-text {
+    font-size: 1rem;
+    color: #f0f0f0;
+    font-weight: 500;
+}
 
-    .logo {
-        font-size: 1.5rem;
-    }
-
-    .lect-nav-links {
-        font-size: 0.9rem;
-    }
+.header-title {
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-weight: bold;
+    letter-spacing: 0.5px;
 }
