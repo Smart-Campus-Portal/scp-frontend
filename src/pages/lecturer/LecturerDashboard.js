@@ -141,30 +141,6 @@ function LecturerDashboard() {
                   </div>
                 </div>
 
-                {/* Notifications */}
-                <div className="lect-notifications-ovv">
-                  <div className="lect-notification-head"><IoMdNotifications /> Notifications</div>
-                  <div className="notifications-list">
-                    {notifications.slice(0, 3).map(notif => {
-                      const date = new Date(notif.timestamp);
-                      const isValidDate = !isNaN(date.getTime());
-
-                      return (
-                        <div key={notif.id} className="lect-notification-box">
-                          <div className="lect-message">
-                            <h4 className="lect-notif-title">{notif.title}</h4>
-                            <p className="lect-notif-msg">{notif.message}</p>
-                          </div>
-                          <div className="lect-notification-time">
-                            {isValidDate
-                              ? formatDistanceToNow(date, { addSuffix: true })
-                              : 'Invalid date'}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
               </div>
             </>
           ) : (

@@ -3,7 +3,110 @@
     flex-direction: column;
     height: 100vh;
 
-    .dash-side {
+    .dash-side {.lect-rep-layout {
+        display: flex;
+        flex-direction: row; /* Sidebar and content side by side */
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        box-sizing: border-box;
+      }
+      
+      .lect-rep-side {
+        width: 256px;
+        background-color: #1e3a8a;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        box-sizing: border-box;
+      }
+      
+      .lect-rep-content {
+        flex: 1;
+        padding: 2rem;
+        overflow-y: auto;
+        background-color: #f0f0f0;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      
+      /* Report Form Styles */
+      .rep-form-container {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 20px;
+        max-width: 800px;
+        width: 100%;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      .rep-form-heading {
+        font-size: 2.5rem;
+        color: #1e3a8a;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      
+      .rep-form-desc {
+        text-align: center;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .rep-form-lbl {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+      
+      .rep-form-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+      }
+      
+      .rep-sub-btn {
+        width: 100%;
+        padding: 1rem;
+        background-color: #1e3a8a;
+        color: white;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      
+      .rep-sub-btn:hover {
+        background-color: #16306a;
+      }
+      
+      /* Responsive Tweaks */
+      @media (max-width: 768px) {
+        .lect-rep-layout {
+          flex-direction: column;
+        }
+      
+        .lect-rep-side {
+          width: 100%;
+          height: auto;
+        }
+      
+        .lect-rep-content {
+          padding: 1rem;
+          align-items: stretch;
+        }
+      
+        .rep-form-container {
+          padding: 1.5rem;
+        }
+      }
+      
         display: flex;
         flex: 3;
         overflow: hidden;
